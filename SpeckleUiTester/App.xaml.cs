@@ -86,7 +86,7 @@ namespace SpeckleUiTester
       throw new NotImplementedException();
     }
 
-    public override void RemoveReceiver( string args )
+    public override void RemoveClient( string args )
     {
       var client = JsonConvert.DeserializeObject<dynamic>( args );
       try
@@ -95,11 +95,6 @@ namespace SpeckleUiTester
         myClients.RemoveAt( index );
       }
       catch ( Exception e ) { }
-    }
-
-    public override void RemoveSender( string args )
-    {
-      throw new NotImplementedException();
     }
   }
 

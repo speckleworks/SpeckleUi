@@ -30,7 +30,7 @@ namespace SpeckleUiBase
 
       Browser.RegisterAsyncJsObject( "UiBindings", baseBindings );
 
-      Browser.Address = @"http://10.211.55.2:8080/";
+      Browser.Address = @"http://localhost:8080/";
     }
 
     // Note: Dynamo ships with cefsharp too, so we need to be careful around initialising cefsharp.
