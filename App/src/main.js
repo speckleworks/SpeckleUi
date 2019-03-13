@@ -16,7 +16,7 @@ Vue.use( VueTimeago, {
 
 // set up an event bus on the window, to be used by the SpeckleUiBindings class to send events here
 window.EventBus = new Vue( )
-window.store = store
+window.Store = store
 window.app = new Vue( {
   router,
   store,

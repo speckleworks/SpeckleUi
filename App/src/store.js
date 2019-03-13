@@ -31,6 +31,10 @@ export default new Vuex.Store( {
       } )
     },
 
+    DELETE_ALL_CLIENTS( state ) {
+      state.clients = [ ]
+    },
+
     SET_ACCOUNTS( state, accounts ) {
       state.accounts = accounts
     },
@@ -77,9 +81,10 @@ export default new Vuex.Store( {
     } ),
 
     removeReceiverClient: ( context, client ) => new Promise( async ( resolve, reject ) => {
-      await UiBindings.removeReceiver( JSON.stringify( client ) )
+      await UiBindings.removeClient( JSON.stringify( client ) )
       await Axios.delete( `${client.account.RestApi}/clients/${client.clientId}`, { headers: { Authorization: client.account.Token } } )
       context.commit( 'REMOVE_CLIENT', client._id )
+      console.log( 'hello refresh - this is important' )
     } ),
 
     updateClient: ( context, { client, expire } ) => new Promise( async ( resolve, reject ) => {
@@ -92,9 +97,9 @@ export default new Vuex.Store( {
       context.commit( 'SET_CLIENT_DATA', cl )
     } ),
 
-    // updateClientMeta: ( context, client ) => new Promise( async ( resolve, reject ) => {
-    //   let res = await Axios.get( `${client.account.RestApi}/streams?fields=name,updatedAt`, { headers: { Authorization: client.account.Token } } )
-    // } ),
+    flushClients: ( context ) => new Promise( async ( resolve, reject ) => {
+      context.commit( 'DELETE_ALL_CLIENTS' )
+    } ),
 
     getAccounts: ( context ) => new Promise( async ( resolve, reject ) => {
       let res = await UiBindings.getAccounts( )

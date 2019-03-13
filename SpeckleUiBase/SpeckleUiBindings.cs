@@ -26,7 +26,18 @@ namespace SpeckleUiBase
     /// <param name="eventInfo">The event args, which will be serialised to a string.</param>
     public void NotifyUi( string eventName, dynamic eventInfo )
     {
-      var script = string.Format( "window.EventBus.$emit({0}, {1})", eventName, JsonConvert.SerializeObject( eventInfo ) );
+      var script = string.Format( "window.EventBus.$emit('{0}', {1})", eventName, JsonConvert.SerializeObject( eventInfo ) );
+      Browser.GetMainFrame().EvaluateScriptAsync( script );
+    }
+
+    /// <summary>
+    /// Dispatches a store action directly. Please note, this will not work for any action.
+    /// </summary>
+    /// <param name="storeActionName"></param>
+    /// <param name="args"></param>
+    public void DispatchStoreActionUi( string storeActionName, string args = null )
+    {
+      var script = string.Format( "window.Store.dispatch('{0}', '{1}')", storeActionName, args );
       Browser.GetMainFrame().EvaluateScriptAsync( script );
     }
 
@@ -59,7 +70,7 @@ namespace SpeckleUiBase
     public abstract string GetFileClients( );
 
     /// <summary>
-    /// TODO: Adds a sender and persits the info to the host file
+    /// Adds a sender and persits the info to the host file
     /// </summary>
     public abstract void AddSender( string args );
     
