@@ -12,13 +12,11 @@ namespace SpeckleUiBase
   public abstract class SpeckleUIBindings
   {
     public ChromiumWebBrowser Browser { get; set; }
-    public List<dynamic> myClients;
 
     public SpeckleUIBindings( )
     {
       SpeckleCore.SpeckleInitializer.Initialize();
       SpeckleCore.LocalContext.Init();
-      myClients = new List<dynamic>();
     }
 
     /// <summary>
