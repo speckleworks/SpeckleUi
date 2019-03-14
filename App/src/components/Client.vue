@@ -2,7 +2,7 @@
   <v-container grid-list-md mb-4 pa-0 v-if='client' class='elevation-1'>
     <v-layout align-center>
       <v-flex xs2>
-        <v-btn fab :outline='!client.expired' icon color='primary' @click.native='bakeReceiver()' :loading='client.loading'>
+        <v-btn fab :outline='!client.expired' icon color='primary' @click.native='bakeReceiver()' :loading='client.loading' :xxxdisabled='!client.expired'>
           <v-icon>{{ client.expired?"cloud_download":"check_circle"}}</v-icon>
         </v-btn>
       </v-flex>
@@ -61,7 +61,6 @@ export default {
     }
   },
   data: ( ) => ( {
-    timeAgoUpdate: null
   } ),
   methods: {
     bakeReceiver( ) {
