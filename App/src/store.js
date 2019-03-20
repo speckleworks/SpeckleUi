@@ -82,7 +82,9 @@ export default new Vuex.Store( {
 
     removeReceiverClient: ( context, client ) => new Promise( async ( resolve, reject ) => {
       await UiBindings.removeClient( JSON.stringify( client ) )
-      await Axios.delete( `${client.account.RestApi}/clients/${client.clientId}`, { headers: { Authorization: client.account.Token } } )
+      try {
+        await Axios.delete( `${client.account.RestApi}/clients/${client.clientId}`, { headers: { Authorization: client.account.Token } } )
+      } catch {}
       context.commit( 'REMOVE_CLIENT', client._id )
       console.log( 'hello refresh - this is important' )
     } ),
