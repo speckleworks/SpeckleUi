@@ -6,6 +6,7 @@ Vue.use( Vuex )
 
 export default new Vuex.Store( {
   state: {
+    test: {},
     accounts: [ ],
     clients: [ ],
     hostAppName: null,
@@ -66,6 +67,9 @@ export default new Vuex.Store( {
       client.type = 'receiver'
       client.expired = true
       client.loading = false
+      client.loadingBlurb = ""
+      client.isLoadingIndeterminate = true
+      client.loadingProgress = 0
       client.clientId = null
       let docName = await UiBindings.getFileName( )
       let docId = await UiBindings.getDocumentId( )

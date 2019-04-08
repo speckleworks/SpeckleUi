@@ -23,6 +23,12 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap align-center>
+
+      <v-flex xs12 v-show='client.loading'>
+        <v-progress-linear :indeterminate="client.isLoadingIndeterminate" height="2"></v-progress-linear>
+        <span class="caption">{{client.loadingBlurb}}</span>
+      </v-flex>
+      
       <v-flex xs12>
         <v-divider></v-divider>
       </v-flex>
@@ -32,7 +38,9 @@
         </b>) | {{client.expired}}
       </v-flex>
       <v-flex xs2 text-xs-right>
-        <v-btn small flat icon color='error' @click.native='deleteClient'><v-icon>delete</v-icon></v-btn>
+        <v-btn small flat icon color='error' @click.native='deleteClient'>
+          <v-icon>delete</v-icon>
+        </v-btn>
         <!-- <v-btn small flat color='primary'>admin</v-btn> -->
       </v-flex>
       <v-flex xs12>
@@ -60,8 +68,7 @@ export default {
       return ( new Date( this.client.updatedAt ) ).toLocaleDateString( )
     }
   },
-  data: ( ) => ( {
-  } ),
+  data: ( ) => ( {} ),
   methods: {
     bakeReceiver( ) {
       this.$store.dispatch( 'bakeReceiver', this.client )
