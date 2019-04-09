@@ -25,7 +25,7 @@
     <v-layout row wrap align-center>
 
       <v-flex xs12 v-show='client.loading'>
-        <v-progress-linear :indeterminate="client.isLoadingIndeterminate" height="2"></v-progress-linear>
+        <v-progress-linear :active="client.loading" :indeterminate="client.isLoadingIndeterminate" height="21" v-model="client.loadingProgress"></v-progress-linear>
         <span class="caption">{{client.loadingBlurb}}</span>
       </v-flex>
       
