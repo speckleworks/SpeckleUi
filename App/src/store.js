@@ -59,6 +59,38 @@ export default new Vuex.Store( {
       context.commit( 'SET_CLIENT_DATA', { _id: client._id, expired: false, loading: false } )
     } ),
 
+    addSenderClient: ( context, { account, streamName, objects } ) => new Promise( async ( resolve, reject ) => {
+      console.log( streamName, objects )
+      let res = await Axios.post( `${account.RestApi}/streams`, { name: streamName }, { headers: { Authorization: account.Token } } )
+      let stream = res.data.resource
+      console.log( stream )
+
+      let client = { ...stream }
+      client.AccountId = account.AccountId
+      client.account = { RestApi: account.RestApi, Email: account.Email, Token: account.Token }
+      client.type = 'sender'
+      client.expired = true
+      client.loading = false
+      client.loadingBlurb = ''
+      client.isLoadingIndeterminate = true
+      client.loadingProgress = 0
+      client.clientId = null
+
+      let docName = await UiBindings.getFileName( )
+      let docId = await UiBindings.getDocumentId( )
+      let clientCreationRes = await Axios.post( `${account.RestApi}/clients`, { documentType: context.state.hostAppName, streamId: stream.streamId, documentName: docName, documentGuid: docId, role: 'receiver' }, { headers: { Authorization: account.Token } } )
+      client.clientId = clientCreationRes.data.resource._id
+      console.log( clientCreationRes )
+
+      context.commit( 'ADD_CLIENT', client )
+
+      let dupe = { ...client }
+      dupe.account = { ...dupe.account }
+      delete dupe.account.Token
+      await UiBindings.addSender( JSON.stringify( client ) )
+      return resolve( )
+    } ),
+
     addReceiverClient: ( context, { account, stream } ) => new Promise( async ( resolve, reject ) => {
       let client = { ...stream }
 
@@ -67,7 +99,7 @@ export default new Vuex.Store( {
       client.type = 'receiver'
       client.expired = true
       client.loading = false
-      client.loadingBlurb = ""
+      client.loadingBlurb = ''
       client.isLoadingIndeterminate = true
       client.loadingProgress = 0
       client.clientId = null
@@ -150,12 +182,17 @@ export default new Vuex.Store( {
       console.log( clients )
       if ( clients.length === 0 ) return resolve( )
       clients.forEach( existingClient => {
-        let account = context.state.accounts.find( ac => ac.Email === existingClient.account.Email && ac.RestApi === existingClient.account.RestApi )
-        if ( account !== null ) {
-          existingClient.account.Token = account.Token
-          context.commit( 'ADD_CLIENT', existingClient )
-        } else {
-          console.warn( 'no account found for client. sorrrrry!', existingClient )
+        try {
+          let account = context.state.accounts.find( ac => ac.Email === existingClient.account.Email && ac.RestApi === existingClient.account.RestApi )
+          if ( account !== null ) {
+            existingClient.account.Token = account.Token
+            context.commit( 'ADD_CLIENT', existingClient )
+            // TODO: update state on server (client: online)
+          } else {
+            console.warn( 'no account found for client. sorrrrry!', existingClient )
+          }
+        } catch {
+          console.warn( 'Error in recreating client ' + existingClient.streamId )
         }
       } )
     } ),

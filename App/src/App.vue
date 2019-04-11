@@ -6,20 +6,36 @@
         <span class="font-weight-light">{{$store.state.hostAppName}}</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="primary" dark absolute bottom right fab :ripple="false" @click.native='showAddNew=true'>
-        <v-icon>{{showAddNew ? "close" : "add"}}</v-icon>
+      <v-btn color="primary" dark absolute bottom right fab :ripple="false" @click.native='showAddNewReceiver=true'>
+        <v-icon>cloud_download</v-icon>
+      </v-btn>
+      <v-btn color="black" dark absolute bottom right fab :ripple="false" @click.native='showAddNewSender=true' style="margin-right:60px">
+        <v-icon>cloud_upload</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-dialog v-model="showAddNew" scrollable xxxmax-width="300px" hide-overlay>
-      <NewReceiver :is-visible='showAddNew' @close='showAddNew=false'>
-      </NewReceiver>
+    <v-dialog v-model="showAddNewReceiver" scrollable fullscreen>
+      <NewClient :is-visible='showAddNewReceiver' @close='showAddNewReceiver=false'>
+      </NewClient>
+    </v-dialog>
+    <v-dialog v-model="showAddNewSender" scrollable fullscreen>
+      <NewClientSender :is-visible='showAddNewSender' @close='showAddNewSender=false'>
+      </NewClientSender>
     </v-dialog>
     <v-content>
-      <v-container grid-list-md text-xs-center pa-0 mt-4>
+      <v-container grid-list-md pa-0 mt-4>
         <v-layout row wrap>
+          <v-flex xs12 class='headline text-uppercase' pa-3>
+            Receivers
+          </v-flex>
           <v-flex xs12>
-            <Client v-for='client in $store.state.clients' :key='client.streamId + ":" + client.AccountId' :client='client '>
-            </Client>
+            <client-receiver v-for='client in receivers' :key='client.streamId + ":" + client.AccountId' :client='client '>
+            </client-receiver>
+          </v-flex>
+          <v-flex xs12 class='headline text-uppercase' pa-3>
+            Senders
+          </v-flex>
+          <v-flex xs12>
+            <client-sender v-for='client in senders' :key='client.streamId + ":" + client.AccountId' :client='client'>{{client}}</client-sender>
           </v-flex>
         </v-layout>
       </v-container>
@@ -28,19 +44,32 @@
 </template>
 <script>
 import HelloWorld from './components/HelloWorld'
-import NewReceiver from './components/NewReceiver.vue'
-import Client from './components/Client.vue'
+import NewClient from './components/NewClient.vue'
+import NewClientSender from './components/NewClientSender.vue'
+import ClientReceiver from './components/ClientReceiver.vue'
+import ClientSender from './components/ClientSender.vue'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    NewReceiver,
-    Client
+    NewClient,
+    NewClientSender,
+    ClientReceiver,
+    ClientSender
+  },
+  computed: {
+    receivers( ) {
+      return this.$store.state.clients.filter( cl => cl.type === 'receiver' )
+    },
+    senders( ) {
+      return this.$store.state.clients.filter( cl => cl.type === 'sender' )
+    }
   },
   data( ) {
     return {
-      showAddNew: false
+      showAddNewReceiver: false,
+      showAddNewSender: false
     }
   },
   methods: {

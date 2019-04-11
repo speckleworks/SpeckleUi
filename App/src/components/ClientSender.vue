@@ -2,8 +2,8 @@
   <v-container grid-list-md mb-4 pa-0 v-if='client' class='elevation-1'>
     <v-layout align-center>
       <v-flex xs2>
-        <v-btn fab :outline='!client.expired' icon color='primary' @click.native='bakeReceiver()' :loading='client.loading' :xxxdisabled='!client.expired'>
-          <v-icon>{{ client.expired?"cloud_download":"check_circle"}}</v-icon>
+        <v-btn fab :outline='!client.expired' icon color='black' dark :loading='client.loading' @click.native='startUpload()'>
+          <v-icon>{{ client.expired?"cloud_upload":"cloud_upload" }}</v-icon>
         </v-btn>
       </v-flex>
       <v-flex text-xs-left>
@@ -15,7 +15,7 @@
         <!-- <v-divider></v-divider> -->
       </v-flex>
       <v-flex text-xs-right>
-        <v-chip outline color='primary'>
+        <v-chip outline color='black'>
           <span class='caption' style="user-select:all">
             {{client.streamId}}
           </span>
@@ -23,29 +23,27 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap align-center>
-
       <v-flex xs12 v-show='client.loading'>
         <v-progress-linear :active="client.loading" :indeterminate="client.isLoadingIndeterminate" height="21" v-model="client.loadingProgress"></v-progress-linear>
         <span class="caption">{{client.loadingBlurb}}</span>
       </v-flex>
-      
-      <v-flex xs12>
-        <v-divider></v-divider>
-      </v-flex>
-      <v-flex xs10 text-xs-left pl-4 class='caption'>
+      <v-flex xs4 text-xs-left pl-4 class='caption gray'>
         Last update: {{updatedAt}} (<b>
           <timeago :datetime="client.updatedAt" :auto-update="60"></timeago>
-        </b>) | {{client.expired}}
+        </b>)
       </v-flex>
-      <v-flex xs2 text-xs-right>
+      <v-flex xs8 text-xs-right>
+        <v-btn small>
+          edit selection ({{client.objects.length}} objs)
+        </v-btn>
         <v-btn small flat icon color='error' @click.native='deleteClient'>
           <v-icon>delete</v-icon>
         </v-btn>
-        <!-- <v-btn small flat color='primary'>admin</v-btn> -->
       </v-flex>
       <v-flex xs12>
-        <!-- <v-divider></v-divider> -->
       </v-flex>
+    </v-layout>
+    <v-layout row wrap align-center v-if='stage==="new"'>
     </v-layout>
   </v-container>
 </template>
@@ -53,7 +51,7 @@
 import Sockette from 'sockette'
 
 export default {
-  name: "Client",
+  name: "SenderClient",
   props: {
     client: {
       type: Object,
@@ -68,10 +66,13 @@ export default {
       return ( new Date( this.client.updatedAt ) ).toLocaleDateString( )
     }
   },
-  data: ( ) => ( {} ),
+  data: ( ) => ( {
+    stage: "new"
+  } ),
   methods: {
-    bakeReceiver( ) {
-      this.$store.dispatch( 'bakeReceiver', this.client )
+    startUpload( ) {
+      // TODO
+      console.log('not done yet')
     },
     deleteClient( ) {
       this.$store.dispatch( 'removeReceiverClient', this.client )
@@ -90,10 +91,8 @@ export default {
         let message = JSON.parse( e.data )
         switch ( message.args.eventType ) {
           case 'update-global':
-            this.$store.dispatch( 'updateClient', { client: this.client, expire: true } )
             break
           case 'update-meta':
-            this.$store.dispatch( 'updateClient', { client: this.client, expire: false } )
             break
         }
 

@@ -91,6 +91,8 @@ namespace SpeckleUiBase
     /// <param name="args"></param>
     public abstract void BakeReceiver( string args );
 
+    public abstract void UpdateSender( string args );
+
     // TODO: See how we go about this
     public abstract void AddObjectsToSender( string args );
     public abstract void RemoveObjectsFromSender( string args );
