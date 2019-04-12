@@ -72,7 +72,8 @@ export default {
   methods: {
     startUpload( ) {
       // TODO
-      console.log('not done yet')
+      console.log( 'not done yet' )
+      UiBindings.updateSender( JSON.stringify( this.client ) )
     },
     deleteClient( ) {
       this.$store.dispatch( 'removeReceiverClient', this.client )

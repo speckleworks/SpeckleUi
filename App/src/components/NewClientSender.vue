@@ -25,7 +25,11 @@
           <p class='caption'>Below are the selected objects that we'll try and send. Note: you'll need to select them first!</p>
           <v-layout row wrap>
             <v-flex xs12 v-for='obj in selectedObjects' :key='obj.id'>
-              <pre>{{obj}}</pre>
+              <v-layout row>
+                <v-flex xs4>{{obj.id}}</v-flex>    
+                <v-flex xs4>{{obj.type}}</v-flex>    
+                <v-flex xs4>{{obj.cat}}</v-flex>    
+              </v-layout>
             </v-flex>
           </v-layout>
         </v-flex>

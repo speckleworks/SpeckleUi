@@ -66,6 +66,7 @@ export default new Vuex.Store( {
       console.log( stream )
 
       let client = { ...stream }
+      client.objects = objects
       client.AccountId = account.AccountId
       client.account = { RestApi: account.RestApi, Email: account.Email, Token: account.Token }
       client.type = 'sender'
@@ -87,6 +88,10 @@ export default new Vuex.Store( {
       let dupe = { ...client }
       dupe.account = { ...dupe.account }
       delete dupe.account.Token
+      
+      console.log( 'Sending this to ui bindings to add as a receiver' )
+      console.log( client )
+
       await UiBindings.addSender( JSON.stringify( client ) )
       return resolve( )
     } ),
