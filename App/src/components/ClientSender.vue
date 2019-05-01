@@ -88,20 +88,6 @@ export default {
         this.sockette.send( 'alive' )
         return
       }
-      try {
-        let message = JSON.parse( e.data )
-        switch ( message.args.eventType ) {
-          case 'update-global':
-            break
-          case 'update-meta':
-            break
-        }
-
-      } catch ( err ) {
-        console.warn( `Could not parse/interpret ${e.data} for ${this.client.streamId}` )
-        console.log( e.data )
-      }
-
     },
     wsError( e ) { console.log( e ) },
     wsReconnect( e ) { console.log( e ) },

@@ -79,9 +79,8 @@ export default new Vuex.Store( {
 
       let docName = await UiBindings.getFileName( )
       let docId = await UiBindings.getDocumentId( )
-      let clientCreationRes = await Axios.post( `${account.RestApi}/clients`, { documentType: context.state.hostAppName, streamId: stream.streamId, documentName: docName, documentGuid: docId, role: 'receiver' }, { headers: { Authorization: account.Token } } )
+      let clientCreationRes = await Axios.post( `${account.RestApi}/clients`, { documentType: context.state.hostAppName, streamId: stream.streamId, documentName: docName, documentGuid: docId, role: 'sender' }, { headers: { Authorization: account.Token } } )
       client.clientId = clientCreationRes.data.resource._id
-      console.log( clientCreationRes )
 
       context.commit( 'ADD_CLIENT', client )
 

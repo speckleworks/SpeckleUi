@@ -24,17 +24,15 @@
     <v-content>
       <v-container grid-list-md pa-0 mt-4>
         <v-layout row wrap>
-          <v-flex xs12 class='headline text-uppercase' pa-3>
+          <v-flex xs12 class='headline text-uppercase' pa-3 v-if='receivers.length>0'>
             Receivers
-          </v-flex>
-          <v-flex xs12>
+            <v-divider class='my-4'></v-divider>
             <client-receiver v-for='client in receivers' :key='client.streamId + ":" + client.AccountId' :client='client '>
             </client-receiver>
           </v-flex>
           <v-flex xs12 class='headline text-uppercase' pa-3>
             Senders
-          </v-flex>
-          <v-flex xs12>
+            <v-divider class='my-4'></v-divider>
             <client-sender v-for='client in senders' :key='client.streamId + ":" + client.AccountId' :client='client'>{{client}}</client-sender>
           </v-flex>
         </v-layout>
