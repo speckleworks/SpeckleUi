@@ -22,8 +22,8 @@
         <v-flex xs12>
           <p class='headline thin'>Object selection <v-btn small @click.native='refreshSelection()'>refresh selection ({{selectedObjects.length}})</v-btn>
           </p>
-          <p class='caption'>Below are the selected objects that we'll try and send. Note: you'll need to select them first!</p>
-          <v-layout row wrap>
+          <!-- <p class='caption'>Below are the selected objects that we'll try and send. Note: you'll need to select them first!</p> -->
+          <!-- <v-layout row wrap>
             <v-flex xs12 v-for='obj in selectedObjects' :key='obj.id'>
               <v-layout row>
                 <v-flex xs4>{{obj.id}}</v-flex>    
@@ -31,7 +31,7 @@
                 <v-flex xs4>{{obj.cat}}</v-flex>    
               </v-layout>
             </v-flex>
-          </v-layout>
+          </v-layout> -->
         </v-flex>
       </v-layout>
       <v-layout row wrap align-center>

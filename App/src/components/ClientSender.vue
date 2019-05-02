@@ -33,17 +33,13 @@
         </b>)
       </v-flex>
       <v-flex xs8 text-xs-right>
-        <v-btn small>
+        <!-- <v-btn small>
           edit selection ({{client.objects.length}} objs)
-        </v-btn>
+        </v-btn> -->
         <v-btn small flat icon color='error' @click.native='deleteClient'>
           <v-icon>delete</v-icon>
         </v-btn>
       </v-flex>
-      <v-flex xs12>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap align-center v-if='stage==="new"'>
     </v-layout>
   </v-container>
 </template>
@@ -66,8 +62,18 @@ export default {
       return ( new Date( this.client.updatedAt ) ).toLocaleDateString( )
     }
   },
+  watch: {
+    'client.loading'(val, oldVal) {
+      console.log("loading state changed to " + this.client.l)
+    },
+    client: {
+      handler(val, oldVal) {
+        console.log(val)
+      },
+      deep: true
+    }
+  },
   data: ( ) => ( {
-    stage: "new"
   } ),
   methods: {
     startUpload( ) {
