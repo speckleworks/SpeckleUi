@@ -64,7 +64,8 @@ export default {
   },
   watch: {
     'client.loading'(val, oldVal) {
-      console.log("loading state changed to " + val)
+      if( !val && this.sendStarted) 
+        this.broadcastSendEnd()
     },
     client: {
       handler(val, oldVal) {
@@ -74,16 +75,27 @@ export default {
     }
   },
   data: ( ) => ( {
+    sendStarted: false
   } ),
   methods: {
     startUpload( ) {
-      // TODO
-      console.log( 'not done yet' )
+      this.sendStarted = true
       UiBindings.updateSender( JSON.stringify( this.client ) )
     },
     deleteClient( ) {
       this.$store.dispatch( 'removeReceiverClient', this.client )
       this.sockette.close( )
+    },
+    broadcastSendEnd(){
+      this.sendStarted = false
+      this.sockette.json( { 
+        eventName:"broadcast", 
+        resourceType: 'stream', 
+        resourceId: this.client.streamId,
+        args: {
+          eventType: "update-global"
+        }  
+      } )
     },
     wsOpen( e ) {
       this.sockette.json( { eventName: 'join', resourceType: 'stream', resourceId: this.client.streamId } )
@@ -100,8 +112,6 @@ export default {
     wsClose( e ) { console.log( e ) }
   },
   mounted( ) {
-    console.log( 'client mounted!' )
-    console.log( this.client )
     let wsUrl = this.account.RestApi.replace( 'http', 'ws' )
     this.sockette = new Sockette( `${wsUrl}?client_id=${this.client.clientId}&access_token=${this.account.Token}`, {
       timeout: 5e3,
@@ -114,7 +124,6 @@ export default {
     } )
   },
   beforeDestroy( ) {
-    console.log( 'bye bye...' )
     this.sockette.close( )
   }
 }
