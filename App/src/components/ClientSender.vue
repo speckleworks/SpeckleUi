@@ -64,7 +64,7 @@ export default {
   },
   watch: {
     'client.loading'(val, oldVal) {
-      console.log("loading state changed to " + this.client.l)
+      console.log("loading state changed to " + val)
     },
     client: {
       handler(val, oldVal) {
