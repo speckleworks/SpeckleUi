@@ -43,9 +43,7 @@
         </v-btn>
         <!-- <v-btn small flat color='primary'>admin</v-btn> -->
       </v-flex>
-      <v-flex xs12>
-        <!-- <v-divider></v-divider> -->
-      </v-flex>
+      <v-flex xs12 class='caption'>{{client.children}}</v-flex>
     </v-layout>
   </v-container>
 </template>

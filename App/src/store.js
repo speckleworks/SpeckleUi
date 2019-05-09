@@ -200,5 +200,12 @@ export default new Vuex.Store( {
         }
       } )
     } ),
+
+    cloneStream: ( context, client ) => new Promise( async (resolve, reject) => {
+      let res = await Axios.post( `${client.account.RestApi}/streams/${client.streamId}/clone`, null, { headers: { Authorization: client.account.Token } } )
+      console.log( res.data )
+      let tempClient = { _id: client._id, children: res.data.parent.children } 
+      context.commit( 'SET_CLIENT_DATA', tempClient )
+    })
   }
 } )

@@ -40,6 +40,7 @@
           <v-icon>delete</v-icon>
         </v-btn>
       </v-flex>
+      <v-flex xs12 class='caption'>{{client.children}}</v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -80,6 +81,7 @@ export default {
   methods: {
     startUpload( ) {
       this.sendStarted = true
+      this.$store.dispatch( "cloneStream", this.client )
       UiBindings.updateSender( JSON.stringify( this.client ) )
     },
     deleteClient( ) {
