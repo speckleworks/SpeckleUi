@@ -9,7 +9,7 @@
       <v-btn color="primary" dark absolute bottom right fab :ripple="false" @click.native='showAddNewReceiver=true'>
         <v-icon>cloud_download</v-icon>
       </v-btn>
-      <v-btn color="black" dark absolute bottom right fab :ripple="false" @click.native='showAddNewSender=true' style="margin-right:60px">
+      <v-btn color="secondary darken-1" absolute bottom right fab :ripple="false" @click.native='showAddNewSender=true' style="margin-right:60px">
         <v-icon>cloud_upload</v-icon>
       </v-btn>
     </v-toolbar>
@@ -24,16 +24,25 @@
     <v-content>
       <v-container grid-list-md pa-0 mt-4>
         <v-layout row wrap>
-          <v-flex xs12 class='headline text-uppercase' pa-3 v-if='receivers.length>0'>
-            Receivers
-            <v-divider class='my-4'></v-divider>
-            <client-receiver v-for='client in receivers' :key='client.streamId + ":" + client.AccountId' :client='client '>
-            </client-receiver>
+          <v-flex xs12 md6  pa-3 xxxv-if='receivers.length>0'>
+            <span class='headline text-uppercase'>Receivers</span>
+            <v-divider class='my-4 primary'></v-divider>
+            <span class="" v-if="receivers.length===0">There are no receiver clients in this file.</span>
+            <v-container grid-list-xl>
+              <v-layout row wrap>
+                <client-receiver v-for='client in receivers' :key='client.streamId + ":" + client.AccountId' :client='client '>
+                </client-receiver>
+              </v-layout>
+            </v-container>
           </v-flex>
-          <v-flex xs12 class='headline text-uppercase' pa-3>
-            Senders
-            <v-divider class='my-4'></v-divider>
-            <client-sender v-for='client in senders' :key='client.streamId + ":" + client.AccountId' :client='client'>{{client}}</client-sender>
+          <v-flex xs12 md6 pa-3>
+            <span class='headline text-uppercase'>Senders</span>
+            <v-divider class='my-4 secondary'></v-divider>
+             <v-container grid-list-xl>
+              <v-layout row wrap>
+                <client-sender v-for='client in senders' :key='client.streamId + ":" + client.AccountId' :client='client'>{{client}}</client-sender>
+              </v-layout>
+             </v-container>
           </v-flex>
         </v-layout>
       </v-container>
