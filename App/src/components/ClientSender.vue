@@ -1,13 +1,14 @@
 <template>
   <v-flex xs12>
     <v-card class="elevation-10">
-      <v-toolbar color="secondary darken-1 text-truncate elevation-0" dark>
-        <v-icon color="white">cloud_upload</v-icon>&nbsp;
+      <v-toolbar color="secondary xxxdarken-1 text-truncate elevation-0" dark>
+        <v-icon xxxcolor="white">cloud_upload</v-icon>&nbsp;
         <!-- <v-btn disabled icon color="primary">
               <v-icon small>cloud_upload</v-icon>
         </v-btn>-->
         <v-toolbar-title class="text-truncate font-weight-light">{{client.name}}</v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-btn icon :href="`${client.account.RestApi.replace('api','#')}streams/${client.streamId}`" target="_blank"><v-icon>open_in_new</v-icon></v-btn>
         <v-toolbar-items></v-toolbar-items>
       </v-toolbar>
       <v-card-text class="caption">

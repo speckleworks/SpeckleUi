@@ -9,7 +9,7 @@
       <v-btn color="primary" dark absolute bottom right fab :ripple="false" @click.native='showAddNewReceiver=true'>
         <v-icon>cloud_download</v-icon>
       </v-btn>
-      <v-btn color="secondary darken-1" absolute bottom right fab :ripple="false" @click.native='showAddNewSender=true' style="margin-right:60px">
+      <v-btn color="secondary xxxdarken-1" absolute bottom right fab :ripple="false" @click.native='showAddNewSender=true' style="margin-right:60px">
         <v-icon>cloud_upload</v-icon>
       </v-btn>
     </v-toolbar>
