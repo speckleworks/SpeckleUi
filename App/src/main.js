@@ -20,7 +20,13 @@ window.EventBus = new Vue( )
 window.EventBus.$on( 'update-client', args => {
   let cl = JSON.parse( args )
   console.log( cl )
-  window.Store.commit('SET_CLIENT_DATA', cl )
+  window.Store.commit( 'SET_CLIENT_DATA', cl )
+} )
+
+window.EventBus.$on( 'update-selection-count', args => {
+  let parsed = JSON.parse( args )
+  if ( window.Store )
+    window.Store.commit( "SET_SELECTION_COUNT", parsed.selectedObjectsCount )
 } )
 
 window.Store = store

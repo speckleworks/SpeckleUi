@@ -2,13 +2,18 @@
   <v-flex xs12>
     <v-card class="elevation-10">
       <v-toolbar color="secondary xxxdarken-1 text-truncate elevation-0" dark>
-        <v-icon xxxcolor="white">cloud_upload</v-icon>&nbsp;
-        <!-- <v-btn disabled icon color="primary">
-              <v-icon small>cloud_upload</v-icon>
-        </v-btn>-->
+        <v-btn small light fab class="white" flat @click.native="startUpload()">
+          <v-icon color="secondary">cloud_upload</v-icon>
+        </v-btn>
         <v-toolbar-title class="text-truncate font-weight-light">{{client.name}}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon :href="`${client.account.RestApi.replace('api','#')}streams/${client.streamId}`" target="_blank"><v-icon>open_in_new</v-icon></v-btn>
+        <v-btn
+          icon
+          :href="`${client.account.RestApi.replace('api','#')}streams/${client.streamId}`"
+          target="_blank"
+        >
+          <v-icon>open_in_new</v-icon>
+        </v-btn>
         <v-toolbar-items></v-toolbar-items>
       </v-toolbar>
       <v-card-text class="caption">
@@ -36,13 +41,20 @@
         <span class="caption text--lighten-3">{{client.loadingBlurb}}</span>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click.native="startUpload()">PUSH</v-btn>
-        <v-btn icon>
-          <v-icon>add</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon>remove</v-icon>
-        </v-btn>
+        <!-- <v-btn @click.native="startUpload()">PUSH</v-btn>&nbsp; -->
+        <v-chip
+          xxxv-show="$store.state.selectionCount!==0"
+          :color="`${$store.state.selectionCount===0 ? 'white':'secondary'}`"
+        >
+          <v-btn small icon :disabled="$store.state.selectionCount===0">
+            <v-icon>add</v-icon>
+          </v-btn>&nbsp;
+          <span class="caption">{{$store.state.selectionCount}} selected objects</span>
+          &nbsp;
+          <v-btn small icon :disabled="$store.state.selectionCount===0">
+            <v-icon>remove</v-icon>
+          </v-btn>
+        </v-chip>
         <v-spacer></v-spacer>
         <v-btn small flat outline icon color="error" @click.native="deleteClient">
           <v-icon small>delete</v-icon>
@@ -139,6 +151,7 @@ export default {
     startUpload() {
       this.sendStarted = true;
       this.$store.dispatch("cloneStream", this.client);
+      this.client.updatedAt = new Date().toISOString();
       UiBindings.updateSender(JSON.stringify(this.client));
     },
     deleteClient() {
