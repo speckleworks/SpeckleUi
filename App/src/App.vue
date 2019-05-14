@@ -6,10 +6,10 @@
         <span class="font-weight-light">{{$store.state.hostAppName}}</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="primary" dark absolute bottom right fab :ripple="false" @click.native='showAddNewReceiver=true'>
+      <v-btn color="secondary" dark absolute bottom right fab :ripple="false" @click.native='showAddNewReceiver=true'>
         <v-icon>cloud_download</v-icon>
       </v-btn>
-      <v-btn color="secondary xxxdarken-1" absolute bottom right fab :ripple="false" @click.native='showAddNewSender=true' style="margin-right:60px">
+      <v-btn color="primary" absolute bottom right fab :ripple="false" @click.native='showAddNewSender=true' style="margin-right:60px">
         <v-icon>cloud_upload</v-icon>
       </v-btn>
     </v-toolbar>
@@ -26,7 +26,7 @@
         <v-layout row wrap>
           <v-flex xs12 md6  pa-3 xxxv-if='receivers.length>0'>
             <span class='headline text-uppercase'>Receivers</span>
-            <v-divider class='my-4 primary'></v-divider>
+            <v-divider class='my-4 secondary'></v-divider>
             <span class="" v-if="receivers.length===0">There are no receiver clients in this file.</span>
             <v-container grid-list-xl>
               <v-layout row wrap>
@@ -36,8 +36,8 @@
             </v-container>
           </v-flex>
           <v-flex xs12 md6 pa-3>
-            <span class='headline text-uppercase'>Senders</span>
-            <v-divider class='my-4 secondary'></v-divider>
+            <span class='headline text-uppercase text--primary'>Senders</span>
+            <v-divider class='my-4 primary'></v-divider>
              <v-container grid-list-xl>
               <v-layout row wrap>
                 <client-sender v-for='client in senders' :key='client.streamId + ":" + client.AccountId' :client='client'>{{client}}</client-sender>

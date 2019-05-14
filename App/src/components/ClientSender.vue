@@ -1,116 +1,63 @@
 <template>
   <v-flex xs12>
-    <v-card class="elevation-10">
-      <v-toolbar color="secondary xxxdarken-1 text-truncate elevation-0" dark>
-        <v-btn small light fab class="white" flat @click.native="startUpload()">
-          <v-icon color="secondary">cloud_upload</v-icon>
-        </v-btn>
-        <v-toolbar-title class="text-truncate font-weight-light">{{client.name}}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn
-          icon
-          :href="`${client.account.RestApi.replace('api','#')}streams/${client.streamId}`"
-          target="_blank"
-        >
-          <v-icon>open_in_new</v-icon>
-        </v-btn>
-        <v-toolbar-items></v-toolbar-items>
-      </v-toolbar>
-      <v-card-text class="caption">
-        <span>
-          <v-icon small>developer_board</v-icon>
-          {{account.ServerName}}
-        </span>&nbsp;
-        <span class="caption">
-          <v-icon small>fingerprint</v-icon>StreamId:
-          <span style="user-select:all;">
-            <b>{{client.streamId}}</b>
-          </span>
-        </span>&nbsp;
-        <span class="caption">
-          <v-icon small>hourglass_full</v-icon>Last update:
-          <timeago :datetime="client.updatedAt" :auto-update="60"></timeago>
-        </span>
-        <v-progress-linear
-          :active="client.loading"
-          :indeterminate="client.isLoadingIndeterminate"
-          height="2"
-          v-model="client.loadingProgress"
-          color="secondary darken-1"
-        ></v-progress-linear>
-        <span class="caption text--lighten-3">{{client.loadingBlurb}}</span>
-      </v-card-text>
-      <v-card-actions>
-        <!-- <v-btn @click.native="startUpload()">PUSH</v-btn>&nbsp; -->
-        <v-chip
-          xxxv-show="$store.state.selectionCount!==0"
-          :color="`${$store.state.selectionCount===0 ? 'white':'secondary'}`"
-        >
-          <v-btn small icon :disabled="$store.state.selectionCount===0">
-            <v-icon>add</v-icon>
-          </v-btn>&nbsp;
-          <span class="caption">{{$store.state.selectionCount}} selected objects</span>
-          &nbsp;
-          <v-btn small icon :disabled="$store.state.selectionCount===0">
-            <v-icon>remove</v-icon>
+    <v-hover>
+      <v-card class="elevation-10" slot-scope="{ hover }">
+        <v-toolbar color="primary xxxdarken-1 text-truncate elevation-0" dark>
+          <v-btn small light fab class="white" flat @click.native="startUpload()">
+            <v-icon color="primary">cloud_upload</v-icon>
           </v-btn>
-        </v-chip>
-        <v-spacer></v-spacer>
-        <v-btn small flat outline icon color="error" @click.native="deleteClient">
-          <v-icon small>delete</v-icon>
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+          <v-toolbar-title class="text-truncate font-weight-light">{{client.name}}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn
+            icon
+            :href="`${client.account.RestApi.replace('api','#')}streams/${client.streamId}`"
+            target="_blank"
+          >
+            <v-icon>open_in_new</v-icon>
+          </v-btn>
+          <v-toolbar-items></v-toolbar-items>
+        </v-toolbar>
+        <v-card-text class="caption">
+          <span>
+            <v-icon small>developer_board</v-icon>
+            {{account.ServerName}}
+          </span>&nbsp;
+          <span class="caption">
+            <v-icon small>fingerprint</v-icon>StreamId:
+            <span style="user-select:all;">
+              <b>{{client.streamId}}</b>
+            </span>
+          </span>&nbsp;
+          <span class="caption">
+            <v-icon small>hourglass_full</v-icon>Last update:
+            <timeago :datetime="client.updatedAt" :auto-update="60"></timeago>
+          </span>
+          <v-progress-linear
+            :active="client.loading"
+            :indeterminate="client.isLoadingIndeterminate"
+            height="2"
+            v-model="client.loadingProgress"
+            color="primary darken-1"
+          ></v-progress-linear>
+          <span class="caption text--lighten-3">{{client.loadingBlurb}}</span>
+        </v-card-text>
+        <v-card-actions>
+          <!-- <v-btn @click.native="startUpload()">PUSH</v-btn>&nbsp; -->
+          <v-btn small round :disabled="$store.state.selectionCount===0">
+            add <v-icon right>add</v-icon>
+          </v-btn>&nbsp;
+          <v-btn small round :disabled="$store.state.selectionCount===0" color="white">
+            remove <v-icon right>remove</v-icon>
+          </v-btn> &nbsp;&nbsp;
+          <span class="caption">({{$store.state.selectionCount}} selected objects)</span>
+          <v-spacer></v-spacer>
+          <v-btn small flat outline icon color="error" @click.native="deleteClient">
+            <v-icon small>delete</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-hover>
   </v-flex>
-
-  <!-- <v-layout align-center>
-      <v-flex xs2>
-        <v-btn
-          fab
-          :outline="!client.expired"
-          icon
-          color="black"
-          dark
-          :loading="client.loading"
-          @click.native="startUpload()"
-        >
-          <v-icon>{{ client.expired?"cloud_upload":"cloud_upload" }}</v-icon>
-        </v-btn>
-      </v-flex>
-      <v-flex text-xs-left>
-        <span class="title">{{client.name}}</span>
-        <br>
-        <span class="caption">{{account.ServerName}}</span>
-      </v-flex>
-      <v-flex text-xs-right>
-        <v-chip outline color="black">
-          <span class="caption" style="user-select:all">{{client.streamId}}</span>
-        </v-chip>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap align-center>
-      <v-flex xs12 v-show="client.loading">
-        <v-progress-linear
-          :active="client.loading"
-          :indeterminate="client.isLoadingIndeterminate"
-          height="21"
-          v-model="client.loadingProgress"
-        ></v-progress-linear>
-        <span class="caption">{{client.loadingBlurb}}</span>
-      </v-flex>
-      <v-flex xs4 text-xs-left pl-4 class="caption gray">
-        Last update: {{updatedAt}} (
-        <b>
-          <timeago :datetime="client.updatedAt" :auto-update="60"></timeago>
-        </b>)
-      </v-flex>
-      <v-flex xs8 text-xs-right>
-        <v-btn small flat icon color="error" @click.native="deleteClient">
-          <v-icon>delete</v-icon>
-        </v-btn>
-      </v-flex>
-      <v-flex xs12 class="caption">{{client.children}}</v-flex>
-  </v-layout>-->
 </template>
 <script>
 import Sockette from "sockette";

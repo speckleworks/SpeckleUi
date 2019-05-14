@@ -13,7 +13,7 @@ namespace SpeckleUiBase
   {
     public ChromiumWebBrowser Browser { get; set; }
 
-    public SpeckleUIBindings( )
+    public SpeckleUIBindings()
     {
       SpeckleCore.SpeckleInitializer.Initialize();
       SpeckleCore.LocalContext.Init();
@@ -44,7 +44,7 @@ namespace SpeckleUiBase
     /// <summary>
     /// Pops open the dev tools.
     /// </summary>
-    public void ShowDev( )
+    public void ShowDev()
     {
       Browser.ShowDevTools();
     }
@@ -53,27 +53,38 @@ namespace SpeckleUiBase
     /// Gets the current accounts.
     /// </summary>
     /// <returns></returns>
-    public string GetAccounts( )
+    public string GetAccounts()
     {
       return JsonConvert.SerializeObject( SpeckleCore.LocalContext.GetAllAccounts() );
     }
 
-    public abstract string GetApplicationHostName( );
-    public abstract string GetFileName( );
-    public abstract string GetDocumentId( );
-    public abstract string GetDocumentLocation( );
+    public abstract string GetApplicationHostName();
+    public abstract string GetFileName();
+    public abstract string GetDocumentId();
+    public abstract string GetDocumentLocation();
 
     /// <summary>
     /// Returns the serialised clients present in the current open host file.
     /// </summary>
     /// <returns></returns>
-    public abstract string GetFileClients( );
+    public abstract string GetFileClients();
 
     /// <summary>
     /// Adds a sender and persits the info to the host file
     /// </summary>
     public abstract void AddSender( string args );
-    
+
+    /// <summary>
+    /// Adds the current selection to the provided client.
+    /// </summary>
+    public abstract void AddSelectionToSender( string args );
+
+    /// <summary>
+    /// Removes the current selection from the provided client.
+    /// </summary>
+    /// <param name="args"></param>
+    public abstract void RemoveSelectionFromSender( string args );
+
     /// <summary>
     /// Adds a receiver and persits the info to the host file
     /// </summary>
