@@ -22,7 +22,7 @@
         </v-flex>
         <v-flex xs12>
           <p class='headline font-weight-light'>Objects</p>
-          <p class='caption'>Will add current object selection to this stream ({{$store.state.selectionCount}}). If no objects are selected, you will be able to add them later.</p>
+          <p class='caption'>Will add current object selection to this stream ({{$store.state.selectionCount}}). If no objects are selected in the host application, you will be able to add some later.</p>
 
         </v-flex>
       </v-layout>

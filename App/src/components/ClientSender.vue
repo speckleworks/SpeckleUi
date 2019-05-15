@@ -2,7 +2,7 @@
   <v-flex xs12>
     <v-hover>
       <v-card
-        :class="`elevation-${client.expired ? '15' : '5'} ${client.expired ? 'expired' : ''}`"
+        :class="`elevation-${client.expired ? '15' : '1'} ${client.expired ? 'expired' : ''}`"
         slot-scope="{ hover }"
       >
         <v-toolbar color="primary xxxdarken-1 text-truncate elevation-0" dark>
@@ -45,16 +45,26 @@
             v-model="client.loadingProgress"
             color="primary darken-1"
           ></v-progress-linear>
-          <span class="caption text--lighten-3">{{client.loadingBlurb}}</span>
+          <span class="caption text--lighten-3">{{client.loadingBlurb}} </span><span class="caption text--ligthen-4">Total objects: {{client.objects.length}}</span>
         </v-card-text>
         <!-- <v-card-text class="caption text--lighten-3">{{client.message}}</v-card-text> -->
         <v-card-actions>
           <!-- <v-btn @click.native="startUpload()">PUSH</v-btn>&nbsp; -->
-          <v-btn small round :disabled="$store.state.selectionCount===0">
+          <v-btn
+            small
+            round
+            :disabled="$store.state.selectionCount===0"
+            @click.native="addSelection()"
+          >
             add
             <v-icon right>add</v-icon>
           </v-btn>&nbsp;
-          <v-btn small round :disabled="$store.state.selectionCount===0" color="white">
+          <v-btn
+            small
+            round
+            :disabled="$store.state.selectionCount===0"
+            @click.native="removeSelection()"
+          >
             remove
             <v-icon right>remove</v-icon>
           </v-btn>&nbsp;&nbsp;
@@ -64,7 +74,7 @@
             <v-icon small>delete</v-icon>
           </v-btn>
         </v-card-actions>
-        <v-alert v-model="client.expired" dismissible color="grey darken-2">{{client.message}}</v-alert>
+        <v-alert v-model="client.expired" dismissible color="grey darken-2" v-if="client.message && client.message!== ''">{{client.message}}</v-alert>
       </v-card>
     </v-hover>
   </v-flex>
@@ -109,8 +119,8 @@ export default {
       this.sendStarted = true;
       this.$store.dispatch("cloneStream", this.client);
       this.client.updatedAt = new Date().toISOString();
-      this.client.message = ''
-      this.client.expired = false
+      this.client.message = "";
+      this.client.expired = false;
       UiBindings.updateSender(JSON.stringify(this.client));
     },
     deleteClient() {
@@ -128,6 +138,10 @@ export default {
         }
       });
     },
+    addSelection() {
+      UiBindings.addSelectionToSender(JSON.stringify(this.client))
+    },
+    removeSelection() {},
     wsOpen(e) {
       this.sockette.json({
         eventName: "join",

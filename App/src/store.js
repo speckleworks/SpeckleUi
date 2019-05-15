@@ -77,7 +77,7 @@ export default new Vuex.Store( {
       client.type = 'sender'
       client.expired = true
       client.loading = false
-      client.loadingBlurb = ''
+      client.loadingBlurb = 'This stream might be expired.'
       client.isLoadingIndeterminate = true
       client.loadingProgress = 0
       client.message = ''

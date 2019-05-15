@@ -25,7 +25,7 @@
       <v-container grid-list-md pa-0 mt-4>
         <v-layout row wrap>
           <v-flex xs12 md6  pa-3 xxxv-if='receivers.length>0'>
-            <span class='headline text-uppercase'>Receivers</span>
+            <span class='headline text-uppercase secondary--text'>Receivers</span>
             <v-divider class='my-4 secondary'></v-divider>
             <span class="" v-if="receivers.length===0">There are no receiver clients in this file.</span>
             <v-container grid-list-xl>
@@ -36,7 +36,7 @@
             </v-container>
           </v-flex>
           <v-flex xs12 md6 pa-3>
-            <span class='headline text-uppercase text--primary'>Senders</span>
+            <span class='headline text-uppercase primary--text'>Senders</span>
             <v-divider class='my-4 primary'></v-divider>
              <v-container grid-list-xl>
               <v-layout row wrap>
