@@ -17,12 +17,14 @@ Vue.use( VueTimeago, {
 // set up an event bus on the window, to be used by the SpeckleUiBindings class to send events here
 window.EventBus = new Vue( )
 
+// generic route used for quite a bit of comms
 window.EventBus.$on( 'update-client', args => {
   let cl = JSON.parse( args )
   console.log( cl )
   window.Store.commit( 'SET_CLIENT_DATA', cl )
 } )
 
+// keeps track of the selected objects in revit
 window.EventBus.$on( 'update-selection-count', args => {
   let parsed = JSON.parse( args )
   if ( window.Store )

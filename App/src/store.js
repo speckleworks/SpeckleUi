@@ -80,6 +80,7 @@ export default new Vuex.Store( {
       client.loadingBlurb = ''
       client.isLoadingIndeterminate = true
       client.loadingProgress = 0
+      client.message = ''
       client.clientId = null
 
       let docName = await UiBindings.getFileName( )
@@ -111,6 +112,7 @@ export default new Vuex.Store( {
       client.loadingBlurb = ''
       client.isLoadingIndeterminate = true
       client.loadingProgress = 0
+      client.message = ''
       client.clientId = null
       let docName = await UiBindings.getFileName( )
       let docId = await UiBindings.getDocumentId( )
@@ -129,6 +131,7 @@ export default new Vuex.Store( {
       await UiBindings.removeClient( JSON.stringify( client ) )
       try {
         await Axios.delete( `${client.account.RestApi}/clients/${client.clientId}`, { headers: { Authorization: client.account.Token } } )
+          // TODO: mark stream as deleted too!
       } catch {}
       context.commit( 'REMOVE_CLIENT', client._id )
       console.log( 'hello refresh - this is important' )

@@ -1,11 +1,14 @@
 <template>
   <v-flex xs12>
     <v-hover>
-      <v-card class="elevation-10" slot-scope="{ hover }">
+      <v-card
+        :class="`elevation-${client.expired ? '15' : '5'} ${client.expired ? 'expired' : ''}`"
+        slot-scope="{ hover }"
+      >
         <v-toolbar color="primary xxxdarken-1 text-truncate elevation-0" dark>
-          <v-btn small light fab class="white" flat @click.native="startUpload()">
-            <v-icon color="primary">cloud_upload</v-icon>
-          </v-btn>
+          <!-- <v-btn small light fab class="white" flat @click.native="startUpload()"> -->
+          <v-icon color="white">cloud_upload</v-icon>
+          <!-- </v-btn> -->
           <v-toolbar-title class="text-truncate font-weight-light">{{client.name}}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn
@@ -15,7 +18,10 @@
           >
             <v-icon>open_in_new</v-icon>
           </v-btn>
-          <v-toolbar-items></v-toolbar-items>
+          <v-btn :flat="!client.expired" @click.native="startUpload()">
+            Push
+            <v-icon small right>cloud_upload</v-icon>
+          </v-btn>
         </v-toolbar>
         <v-card-text class="caption">
           <span>
@@ -41,20 +47,24 @@
           ></v-progress-linear>
           <span class="caption text--lighten-3">{{client.loadingBlurb}}</span>
         </v-card-text>
+        <!-- <v-card-text class="caption text--lighten-3">{{client.message}}</v-card-text> -->
         <v-card-actions>
           <!-- <v-btn @click.native="startUpload()">PUSH</v-btn>&nbsp; -->
           <v-btn small round :disabled="$store.state.selectionCount===0">
-            add <v-icon right>add</v-icon>
+            add
+            <v-icon right>add</v-icon>
           </v-btn>&nbsp;
           <v-btn small round :disabled="$store.state.selectionCount===0" color="white">
-            remove <v-icon right>remove</v-icon>
-          </v-btn> &nbsp;&nbsp;
+            remove
+            <v-icon right>remove</v-icon>
+          </v-btn>&nbsp;&nbsp;
           <span class="caption">({{$store.state.selectionCount}} selected objects)</span>
           <v-spacer></v-spacer>
           <v-btn small flat outline icon color="error" @click.native="deleteClient">
             <v-icon small>delete</v-icon>
           </v-btn>
         </v-card-actions>
+        <v-alert v-model="client.expired" dismissible color="grey darken-2">{{client.message}}</v-alert>
       </v-card>
     </v-hover>
   </v-flex>
@@ -99,6 +109,8 @@ export default {
       this.sendStarted = true;
       this.$store.dispatch("cloneStream", this.client);
       this.client.updatedAt = new Date().toISOString();
+      this.client.message = ''
+      this.client.expired = false
       UiBindings.updateSender(JSON.stringify(this.client));
     },
     deleteClient() {
@@ -163,4 +175,7 @@ export default {
 };
 </script>
 <style scoped lang='scss'>
+.expired {
+  // border-left: 12px solid red;
+}
 </style>

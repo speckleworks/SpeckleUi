@@ -1,37 +1,29 @@
 <template>
   <v-card>
-    <v-toolbar card dark color="black">
+    <v-toolbar card dark color="primary">
       <v-btn icon dark @click="$emit('close')">
         <v-icon>close</v-icon>
       </v-btn>
+      <v-toolbar-title class="text-truncate font-weight-light">Add a new sender</v-toolbar-title>
     </v-toolbar>
-    <v-card-text>
-      <v-layout row wrap align-center class=''>
+    <v-card-text class='pa-5'>
+      <v-layout row wrap align-center >
         <v-flex xs12>
-          <p class='headline thin'>Select an account:</p>
+          <p class='headline font-weight-light'>Account</p>
           <p class='caption'>We first need to know which speckle server the data is going to go to.</p>
           <v-overflow-btn :items="$store.state.accounts" label="Account" editable solo v-model='selectedAccount' item-text='fullName' return-object></v-overflow-btn>
         </v-flex>
       </v-layout>
       <v-layout row wrap align-center v-if='selectedAccount'>
         <v-flex xs12>
-          <p class='headline thin'>Specify a stream name:</p>
+          <p class='headline font-weight-light'>Stream Name</p>
           <p class='caption'>Something meaningful would do, like 'walls-final-final-2'.</p>
           <v-text-field label="Test-Final-Final2.psd" single-line solo v-model='newStreamName'></v-text-field>
         </v-flex>
         <v-flex xs12>
-          <p class='headline thin'>Object selection <v-btn small @click.native='refreshSelection()'>refresh selection ({{selectedObjects.length}})</v-btn>
-          </p>
-          <!-- <p class='caption'>Below are the selected objects that we'll try and send. Note: you'll need to select them first!</p> -->
-          <!-- <v-layout row wrap>
-            <v-flex xs12 v-for='obj in selectedObjects' :key='obj.id'>
-              <v-layout row>
-                <v-flex xs4>{{obj.id}}</v-flex>    
-                <v-flex xs4>{{obj.type}}</v-flex>    
-                <v-flex xs4>{{obj.cat}}</v-flex>    
-              </v-layout>
-            </v-flex>
-          </v-layout> -->
+          <p class='headline font-weight-light'>Objects</p>
+          <p class='caption'>Will add current object selection to this stream ({{$store.state.selectionCount}}). If no objects are selected, you will be able to add them later.</p>
+
         </v-flex>
       </v-layout>
       <v-layout row wrap align-center>
@@ -41,8 +33,8 @@
       </v-layout>
       <br>
       <v-layout row wrap align-center>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" :ripple="false" :disabled='!validated' @click.native='addSender()'>
+        <!-- <v-spacer></v-spacer> -->
+        <v-btn block color="primary" :ripple="false" :disabled='!validated' @click.native='addSender()'>
           Create Sender
         </v-btn>
       </v-layout>
