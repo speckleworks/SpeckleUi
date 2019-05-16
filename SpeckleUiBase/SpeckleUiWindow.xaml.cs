@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -30,7 +31,14 @@ namespace SpeckleUiBase
 
       Browser.RegisterAsyncJsObject( "UiBindings", baseBindings );
 
+#if DEBUG
       Browser.Address = @"http://localhost:8080/";
+#else
+      var path = Directory.GetParent( Assembly.GetExecutingAssembly().Location );
+      var indexPath = string.Format( @"{0}\app\index.html", path ).Replace( "\\", "/");
+      Browser.Address = indexPath;
+#endif
+
     }
 
     // Note: Dynamo ships with cefsharp too, so we need to be careful around initialising cefsharp.

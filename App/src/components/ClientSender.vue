@@ -6,9 +6,7 @@
         slot-scope="{ hover }"
       >
         <v-toolbar color="primary xxxdarken-1 text-truncate elevation-0" dark>
-          <!-- <v-btn small light fab class="white" flat @click.native="startUpload()"> -->
           <v-icon color="white">cloud_upload</v-icon>
-          <!-- </v-btn> -->
           <v-toolbar-title class="text-truncate font-weight-light">{{client.name}}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn
@@ -69,7 +67,9 @@
             remove
             <v-icon right>remove</v-icon>
           </v-btn>&nbsp;&nbsp;
-          <span class="caption grey--text">{{$store.state.selectionCount}} selected objects</span>
+          <span
+            class="caption grey--text"
+          >{{$store.state.selectionCount}} selected objects</span>
           <v-spacer></v-spacer>
           <v-btn small flat outline icon color="error" @click.native="deleteClient">
             <v-icon small>delete</v-icon>
@@ -134,7 +134,7 @@ export default {
       this.client.updatedAt = new Date().toISOString();
       this.client.message = "";
       this.client.expired = false;
-      UiBindings.updateSender(JSON.stringify(this.client))  ;
+      UiBindings.updateSender(JSON.stringify(this.client));
     },
     deleteClient() {
       this.$store.dispatch("removeReceiverClient", this.client);
