@@ -16,6 +16,7 @@ export default new Vuex.Store( {
   },
   mutations: {
     ADD_CLIENT( state, client ) {
+      if ( !client.hasOwnProperty( "objects" ) ) client.objects = [ ]
       state.clients.unshift( client )
     },
 
@@ -116,6 +117,7 @@ export default new Vuex.Store( {
       client.loadingProgress = 0
       client.message = ''
       client.errors = null
+      client.objects = [ ]
       client.clientId = null
       let docName = await UiBindings.getFileName( )
       let docId = await UiBindings.getDocumentId( )

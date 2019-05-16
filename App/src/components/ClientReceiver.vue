@@ -43,9 +43,9 @@
             height="2"
             v-model="client.loadingProgress"
             color="primary darken-1"
-          ></v-progress-linear>
+          ></v-progress-linear><br>
           <span class="caption text--lighten-3">{{client.loadingBlurb}}</span>&nbsp;
-          <!-- <span class="caption grey--text">Total objects: {{client.objects.length}}</span> -->
+          <span class="caption grey--text">Total objects: {{client.objects.length}}</span>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>

@@ -24,7 +24,7 @@
     <v-content>
       <v-container grid-list-md pa-0 mt-4>
         <v-layout row wrap>
-          <v-flex xs12 md6  pa-3 xxxv-if='receivers.length>0'>
+          <v-flex xs12 sm6  pa-3 xxxv-if='receivers.length>0'>
             <span class='headline text-uppercase secondary--text'>Receivers</span>
             <v-divider class='my-4 secondary'></v-divider>
             <span class="" v-if="receivers.length===0">There are no receiver clients in this file.</span>
@@ -35,10 +35,10 @@
               </v-layout>
             </v-container>
           </v-flex>
-          <v-flex xs12 md6 pa-3>
+          <v-flex xs12 sm6 pa-3>
             <span class='headline text-uppercase primary--text'>Senders</span>
             <v-divider class='my-4 primary'></v-divider>
-             <v-container>
+             <v-container grid-list-xl>
               <v-layout row wrap>
                 <client-sender v-for='client in senders' :key='client.streamId + ":" + client.AccountId' :client='client'>{{client}}</client-sender>
               </v-layout>
