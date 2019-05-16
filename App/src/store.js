@@ -82,6 +82,7 @@ export default new Vuex.Store( {
       client.isLoadingIndeterminate = true
       client.loadingProgress = 0
       client.message = ''
+      client.errors = null
       client.clientId = null
 
       let docName = await UiBindings.getFileName( )
@@ -114,6 +115,7 @@ export default new Vuex.Store( {
       client.isLoadingIndeterminate = true
       client.loadingProgress = 0
       client.message = ''
+      client.errors = null
       client.clientId = null
       let docName = await UiBindings.getFileName( )
       let docId = await UiBindings.getDocumentId( )

@@ -81,6 +81,13 @@
           color="grey darken-2"
           v-if="client.message && client.message!== ''"
         >{{client.message}}</v-alert>
+        <v-alert
+          v-model="client.errors"
+          dismissible
+          type="warning"
+          xxxcolor="grey darken-2"
+          v-if="client.errors && client.errors!== ''"
+        >{{client.errors}}</v-alert>
       </v-card>
     </v-hover>
   </v-flex>

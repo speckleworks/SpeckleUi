@@ -1,5 +1,75 @@
 <template>
-  <v-container grid-list-md mb-4 pa-0 v-if='client' class='elevation-1'>
+  <v-flex xs12>
+    <v-hover>
+      <v-card
+        :class="`elevation-${client.expired ? '15' : '1'} ${client.expired ? 'expired' : ''}`"
+        slot-scope="{ hover }"
+      >
+        <v-toolbar color="secondary text-truncate elevation-0" dark> 
+          <v-icon color="white">cloud_download</v-icon>
+          <v-toolbar-title class="text-truncate font-weight-light">{{client.name}}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn
+            icon
+            :href="`${client.account.RestApi.replace('api','#')}streams/${client.streamId}`"
+            target="_blank"
+          >
+            <v-icon>open_in_new</v-icon>
+          </v-btn>
+          <v-btn :flat="!client.expired" @click.native="bakeReceiver()">
+            Pull
+            <v-icon small right>cloud_download</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-card-text class="caption">
+          <span>
+            <v-icon small>developer_board</v-icon>
+            {{account.ServerName}}
+          </span>&nbsp;
+          <span class="caption">
+            <v-icon small>fingerprint</v-icon>StreamId:
+            <span style="user-select:all;">
+              <b>{{client.streamId}}</b>
+            </span>
+          </span>&nbsp;
+          <span class="caption">
+            <v-icon small>hourglass_full</v-icon>Last update:
+            <timeago :datetime="client.updatedAt" :auto-update="60"></timeago>
+          </span>
+          <v-progress-linear
+            v-show="client.loading"
+            :active="client.loading"
+            :indeterminate="client.isLoadingIndeterminate"
+            height="2"
+            v-model="client.loadingProgress"
+            color="primary darken-1"
+          ></v-progress-linear>
+          <span class="caption text--lighten-3">{{client.loadingBlurb}}</span>&nbsp;
+          <!-- <span class="caption grey--text">Total objects: {{client.objects.length}}</span> -->
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn small flat outline icon color="error" @click.native="deleteClient">
+            <v-icon small>delete</v-icon>
+          </v-btn>
+        </v-card-actions>
+        <v-alert
+          v-model="client.expired"
+          dismissible
+          color="grey darken-2"
+          v-if="client.message && client.message!== ''"
+        >{{client.message}}</v-alert>
+        <v-alert
+          v-model="client.errors"
+          dismissible
+          type="warning"
+          xxxcolor="grey darken-2"
+          v-if="client.errors && client.errors!== ''"
+        >{{client.errors}}</v-alert>
+      </v-card>
+    </v-hover>
+  </v-flex>
+  <!-- <v-container grid-list-md mb-4 pa-0 v-if='client' class='elevation-1'>
     <v-layout align-center>
       <v-flex xs2>
         <v-btn fab :outline='!client.expired' icon color='primary' @click.native='bakeReceiver()' :loading='client.loading' :xxxdisabled='!client.expired'>
@@ -12,7 +82,6 @@
         <span class='caption'>
           {{account.ServerName}}
         </span>
-        <!-- <v-divider></v-divider> -->
       </v-flex>
       <v-flex text-xs-right>
         <v-chip outline color='primary'>
@@ -41,10 +110,9 @@
         <v-btn small flat icon color='error' @click.native='deleteClient'>
           <v-icon>delete</v-icon>
         </v-btn>
-        <!-- <v-btn small flat color='primary'>admin</v-btn> -->
       </v-flex>
     </v-layout>
-  </v-container>
+  </v-container> -->
 </template>
 <script>
 import Sockette from 'sockette'
