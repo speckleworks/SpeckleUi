@@ -10,6 +10,7 @@ export default new Vuex.Store( {
     accounts: [ ],
     clients: [ ],
     hostAppName: null,
+    currentFileName: null,
     errors: [ ],
     selectionCount: 0
   },

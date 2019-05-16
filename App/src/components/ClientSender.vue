@@ -45,7 +45,8 @@
             v-model="client.loadingProgress"
             color="primary darken-1"
           ></v-progress-linear>
-          <span class="caption text--lighten-3">{{client.loadingBlurb}} </span><span class="caption text--ligthen-4">Total objects: {{client.objects.length}}</span>
+          <span class="caption text--lighten-3">{{client.loadingBlurb}}</span>
+          <span class="caption text--ligthen-4">Total objects: {{client.objects.length}}</span>
         </v-card-text>
         <!-- <v-card-text class="caption text--lighten-3">{{client.message}}</v-card-text> -->
         <v-card-actions>
@@ -74,7 +75,12 @@
             <v-icon small>delete</v-icon>
           </v-btn>
         </v-card-actions>
-        <v-alert v-model="client.expired" dismissible color="grey darken-2" v-if="client.message && client.message!== ''">{{client.message}}</v-alert>
+        <v-alert
+          v-model="client.expired"
+          dismissible
+          color="grey darken-2"
+          v-if="client.message && client.message!== ''"
+        >{{client.message}}</v-alert>
       </v-card>
     </v-hover>
   </v-flex>
@@ -139,9 +145,11 @@ export default {
       });
     },
     addSelection() {
-      UiBindings.addSelectionToSender(JSON.stringify(this.client))
+      UiBindings.addSelectionToSender(JSON.stringify(this.client));
     },
-    removeSelection() {},
+    removeSelection() {
+      UiBindings.removeSelectionFromSender(JSON.stringify(this.client));
+    },
     wsOpen(e) {
       this.sockette.json({
         eventName: "join",
