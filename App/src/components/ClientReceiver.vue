@@ -69,50 +69,6 @@
       </v-card>
     </v-hover>
   </v-flex>
-  <!-- <v-container grid-list-md mb-4 pa-0 v-if='client' class='elevation-1'>
-    <v-layout align-center>
-      <v-flex xs2>
-        <v-btn fab :outline='!client.expired' icon color='primary' @click.native='bakeReceiver()' :loading='client.loading' :xxxdisabled='!client.expired'>
-          <v-icon>{{ client.expired?"cloud_download":"check_circle"}}</v-icon>
-        </v-btn>
-      </v-flex>
-      <v-flex text-xs-left>
-        <span class='title'>{{client.name}}</span>
-        <br>
-        <span class='caption'>
-          {{account.ServerName}}
-        </span>
-      </v-flex>
-      <v-flex text-xs-right>
-        <v-chip outline color='primary'>
-          <span class='caption' style="user-select:all">
-            {{client.streamId}}
-          </span>
-        </v-chip>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap align-center>
-
-      <v-flex xs12 v-show='client.loading'>
-        <v-progress-linear :active="client.loading" :indeterminate="client.isLoadingIndeterminate" height="21" v-model="client.loadingProgress"></v-progress-linear>
-        <span class="caption">{{client.loadingBlurb}}</span>
-      </v-flex>
-      
-      <v-flex xs12>
-        <v-divider></v-divider>
-      </v-flex>
-      <v-flex xs10 text-xs-left pl-4 class='caption'>
-        Last update: {{updatedAt}} (<b>
-          <timeago :datetime="client.updatedAt" :auto-update="60"></timeago>
-        </b>)
-      </v-flex>
-      <v-flex xs2 text-xs-right>
-        <v-btn small flat icon color='error' @click.native='deleteClient'>
-          <v-icon>delete</v-icon>
-        </v-btn>
-      </v-flex>
-    </v-layout>
-  </v-container> -->
 </template>
 <script>
 import Sockette from 'sockette'
