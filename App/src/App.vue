@@ -38,7 +38,7 @@
           <v-flex xs12 md6 pa-3>
             <span class='headline text-uppercase primary--text'>Senders</span>
             <v-divider class='my-4 primary'></v-divider>
-             <v-container grid-list-xl>
+             <v-container>
               <v-layout row wrap>
                 <client-sender v-for='client in senders' :key='client.streamId + ":" + client.AccountId' :client='client'>{{client}}</client-sender>
               </v-layout>

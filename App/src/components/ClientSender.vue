@@ -45,8 +45,8 @@
             v-model="client.loadingProgress"
             color="primary darken-1"
           ></v-progress-linear>
-          <span class="caption text--lighten-3">{{client.loadingBlurb}}</span>
-          <span class="caption text--ligthen-4">Total objects: {{client.objects.length}}</span>
+          <span class="caption text--lighten-3">{{client.loadingBlurb}}</span>&nbsp;
+          <span class="caption grey--text">Total objects: {{client.objects.length}}</span>
         </v-card-text>
         <!-- <v-card-text class="caption text--lighten-3">{{client.message}}</v-card-text> -->
         <v-card-actions>
@@ -69,7 +69,7 @@
             remove
             <v-icon right>remove</v-icon>
           </v-btn>&nbsp;&nbsp;
-          <span class="caption">({{$store.state.selectionCount}} selected objects)</span>
+          <span class="caption grey--text">{{$store.state.selectionCount}} selected objects</span>
           <v-spacer></v-spacer>
           <v-btn small flat outline icon color="error" @click.native="deleteClient">
             <v-icon small>delete</v-icon>
@@ -127,7 +127,7 @@ export default {
       this.client.updatedAt = new Date().toISOString();
       this.client.message = "";
       this.client.expired = false;
-      UiBindings.updateSender(JSON.stringify(this.client));
+      UiBindings.updateSender(JSON.stringify(this.client))  ;
     },
     deleteClient() {
       this.$store.dispatch("removeReceiverClient", this.client);
