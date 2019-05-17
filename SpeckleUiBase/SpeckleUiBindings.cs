@@ -1,11 +1,12 @@
-﻿using System;
+﻿extern alias SpeckleNewtonsoft;
+using SNJ = SpeckleNewtonsoft.Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CefSharp;
 using CefSharp.Wpf;
-using Newtonsoft.Json;
 
 namespace SpeckleUiBase
 {
@@ -26,7 +27,7 @@ namespace SpeckleUiBase
     /// <param name="eventInfo">The event args, which will be serialised to a string.</param>
     public void NotifyUi( string eventName, dynamic eventInfo )
     {
-      var script = string.Format( "window.EventBus.$emit('{0}', {1})", eventName, JsonConvert.SerializeObject( eventInfo ) );
+      var script = string.Format( "window.EventBus.$emit('{0}', {1})", eventName, SNJ.JsonConvert.SerializeObject( eventInfo ) );
       Browser.GetMainFrame().EvaluateScriptAsync( script );
     }
 
@@ -55,7 +56,7 @@ namespace SpeckleUiBase
     /// <returns></returns>
     public string GetAccounts()
     {
-      return JsonConvert.SerializeObject( SpeckleCore.LocalContext.GetAllAccounts() );
+      return SNJ.JsonConvert.SerializeObject( SpeckleCore.LocalContext.GetAllAccounts() );
     }
 
     public abstract string GetApplicationHostName();
