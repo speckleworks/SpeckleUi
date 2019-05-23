@@ -5,7 +5,7 @@
         :class="`elevation-${client.expired ? '15' : '1'} ${client.expired ? 'expired' : ''}`"
         slot-scope="{ hover }"
       >
-        <v-toolbar color="secondary text-truncate elevation-0" dark> 
+        <v-toolbar color="secondary text-truncate elevation-0" dark>
           <v-icon color="white">cloud_download</v-icon>
           <v-toolbar-title class="text-truncate font-weight-light">{{client.name}}</v-toolbar-title>
           <v-spacer></v-spacer>
@@ -43,11 +43,15 @@
             height="2"
             v-model="client.loadingProgress"
             color="primary darken-1"
-          ></v-progress-linear><br>
+          ></v-progress-linear>
+          <br>
           <span class="caption text--lighten-3">{{client.loadingBlurb}}</span>&nbsp;
           <span class="caption grey--text">Total objects: {{client.objects.length}}</span>
         </v-card-text>
         <v-card-actions>
+          <v-btn small icon @click.native="selectObjects">
+            <v-icon small>gps_fixed</v-icon>
+          </v-btn>
           <v-spacer></v-spacer>
           <v-btn small flat outline icon color="error" @click.native="deleteClient">
             <v-icon small>delete</v-icon>
@@ -65,13 +69,14 @@
           type="warning"
           xxxcolor="grey darken-2"
           v-if="client.errors && client.errors!== ''"
-        >{{client.errors}}</v-alert>
+          v-html="client.errors"
+        >}</v-alert>
       </v-card>
     </v-hover>
   </v-flex>
 </template>
 <script>
-import Sockette from 'sockette'
+import Sockette from "sockette";
 
 export default {
   name: "Client",
@@ -82,71 +87,97 @@ export default {
     }
   },
   computed: {
-    account( ) {
-      return this.$store.state.accounts.find( ac => ac.AccountId === this.client.AccountId )
+    account() {
+      return this.$store.state.accounts.find(
+        ac => ac.AccountId === this.client.AccountId
+      );
     },
-    updatedAt( ) {
-      return ( new Date( this.client.updatedAt ) ).toLocaleDateString( )
+    updatedAt() {
+      return new Date(this.client.updatedAt).toLocaleDateString();
     }
   },
-  data: ( ) => ( {} ),
+  data: () => ({}),
   methods: {
-    bakeReceiver( ) {
-      this.$store.dispatch( 'bakeReceiver', this.client )
+    bakeReceiver() {
+      this.$store.dispatch("bakeReceiver", this.client);
     },
-    deleteClient( ) {
-      this.$store.dispatch( 'removeReceiverClient', this.client )
-      this.sockette.close( )
+    deleteClient() {
+      this.$store.dispatch("removeReceiverClient", this.client);
+      this.sockette.close();
     },
-    wsOpen( e ) {
-      this.sockette.json( { eventName: 'join', resourceType: 'stream', resourceId: this.client.streamId } )
+    selectObjects() {
+      UiBindings.selectClientObjects(JSON.stringify(this.client));
     },
-    wsMessage( e ) {
-      console.log( e.data )
-      if ( e.data === 'ping' ) {
-        this.sockette.send( 'alive' )
-        return
+    wsOpen(e) {
+      this.sockette.json({
+        eventName: "join",
+        resourceType: "stream",
+        resourceId: this.client.streamId
+      });
+    },
+    wsMessage(e) {
+      console.log(e.data);
+      if (e.data === "ping") {
+        this.sockette.send("alive");
+        return;
       }
       try {
-        let message = JSON.parse( e.data )
-        switch ( message.args.eventType ) {
-          case 'update-global':
-            this.$store.dispatch( 'updateClient', { client: this.client, expire: true } )
-            break
-          case 'update-meta':
-            this.$store.dispatch( 'updateClient', { client: this.client, expire: false } )
-            break
+        let message = JSON.parse(e.data);
+        switch (message.args.eventType) {
+          case "update-global":
+            this.$store.dispatch("updateClient", {
+              client: this.client,
+              expire: true
+            });
+            break;
+          case "update-meta":
+            this.$store.dispatch("updateClient", {
+              client: this.client,
+              expire: false
+            });
+            break;
         }
-
-      } catch ( err ) {
-        console.warn( `Could not parse/interpret ${e.data} for ${this.client.streamId}` )
-        console.log( e.data )
+      } catch (err) {
+        console.warn(
+          `Could not parse/interpret ${e.data} for ${this.client.streamId}`
+        );
+        console.log(e.data);
       }
-
     },
-    wsError( e ) { console.log( e ) },
-    wsReconnect( e ) { console.log( e ) },
-    wsClose( e ) { console.log( e ) }
+    wsError(e) {
+      console.log(e);
+    },
+    wsReconnect(e) {
+      console.log(e);
+    },
+    wsClose(e) {
+      console.log(e);
+    }
   },
-  mounted( ) {
-    console.log( 'client mounted!' )
-    console.log( this.client )
-    let wsUrl = this.account.RestApi.replace( 'http', 'ws' )
-    this.sockette = new Sockette( `${wsUrl}?client_id=${this.client.clientId}&access_token=${this.account.Token}`, {
-      timeout: 5e3,
-      maxAttempts: 100,
-      onopen: this.wsOpen,
-      onmessage: this.wsMessage,
-      onerror: this.wsError,
-      onreconnect: this.wsReconnect,
-      onclose: this.wsClose,
-    } )
+  mounted() {
+    console.log("client mounted!");
+    console.log(this.client);
+    let wsUrl = this.account.RestApi.replace("http", "ws");
+    this.sockette = new Sockette(
+      `${wsUrl}?client_id=${this.client.clientId}&access_token=${
+        this.account.Token
+      }`,
+      {
+        timeout: 5e3,
+        maxAttempts: 100,
+        onopen: this.wsOpen,
+        onmessage: this.wsMessage,
+        onerror: this.wsError,
+        onreconnect: this.wsReconnect,
+        onclose: this.wsClose
+      }
+    );
   },
-  beforeDestroy( ) {
-    console.log( 'bye bye...' )
-    this.sockette.close( )
+  beforeDestroy() {
+    console.log("bye bye...");
+    this.sockette.close();
   }
-}
+};
 </script>
 <style scoped lang='scss'>
 </style>

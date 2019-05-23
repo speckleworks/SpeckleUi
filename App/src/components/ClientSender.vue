@@ -70,6 +70,9 @@
           <span
             class="caption grey--text"
           >{{$store.state.selectionCount}} selected objects</span>
+          <v-btn small icon @click.native="selectObjects">
+            <v-icon small>gps_fixed</v-icon>
+          </v-btn>
           <v-spacer></v-spacer>
           <v-btn small flat outline icon color="error" @click.native="deleteClient">
             <v-icon small>delete</v-icon>
@@ -156,6 +159,9 @@ export default {
     },
     removeSelection() {
       UiBindings.removeSelectionFromSender(JSON.stringify(this.client));
+    },
+    selectObjects() {
+      UiBindings.selectClientObjects(JSON.stringify(this.client));
     },
     wsOpen(e) {
       this.sockette.json({

@@ -108,5 +108,11 @@ namespace SpeckleUiBase
     // TODO: See how we go about this
     public abstract void AddObjectsToSender( string args );
     public abstract void RemoveObjectsFromSender( string args );
+    
+    /// <summary>
+    /// clients should be able to select/preview/hover one way or another their associated objects
+    /// </summary>
+    /// <param name="args"></param>
+    public abstract void SelectClientObjects( string args );
   }
 }
