@@ -69,8 +69,8 @@
           type="warning"
           xxxcolor="grey darken-2"
           v-if="client.errors && client.errors!== ''"
-          v-html="client.errors"
-        >}</v-alert>
+          
+        ><div v-html="client.errors"></div></v-alert>
       </v-card>
     </v-hover>
   </v-flex>
