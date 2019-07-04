@@ -27,8 +27,15 @@ namespace SpeckleUiBase
     /// <param name="eventInfo">The event args, which will be serialised to a string.</param>
     public void NotifyUi( string eventName, dynamic eventInfo )
     {
-      var script = string.Format( "window.EventBus.$emit('{0}', {1})", eventName, SNJ.JsonConvert.SerializeObject( eventInfo ) );
-      Browser.GetMainFrame().EvaluateScriptAsync( script );
+      try
+      {
+        var script = string.Format( "window.EventBus.$emit('{0}', {1})", eventName, SNJ.JsonConvert.SerializeObject( eventInfo ) );
+        Browser.GetMainFrame().EvaluateScriptAsync( script );
+      }
+      catch
+      {
+
+      }
     }
 
     /// <summary>
