@@ -27,7 +27,7 @@
             {{account.ServerName}}
           </span>&nbsp;
           <span class="caption">
-            <v-icon small>fingerprint</v-icon>StreamId:
+            <v-icon small>vpn_key</v-icon>StreamId:
             <span style="user-select:all;">
               <b>{{client.streamId}}</b>
             </span>
