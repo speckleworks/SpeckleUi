@@ -9,6 +9,7 @@
   Title="Speckle"
   Width="800"
   Height="450"
+  Icon="/SpeckleUiBase;component/Assets/speckle.ico"
   mc:Ignorable="d">
   <Grid>
     <cefSharp:ChromiumWebBrowser
