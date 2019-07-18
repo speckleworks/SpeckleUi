@@ -7,8 +7,8 @@
   xmlns:local="clr-namespace:SpeckleUiBase"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   Title="Speckle"
-  Width="800"
-  Height="450"
+  Width="600"
+  Height="800"
   Icon="/SpeckleUiBase;component/Assets/speckle.ico"
   mc:Ignorable="d">
   <Grid>
