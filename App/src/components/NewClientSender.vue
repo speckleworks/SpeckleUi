@@ -18,7 +18,7 @@
         <v-flex xs12>
           <p class='headline font-weight-light'>Stream Name</p>
           <p class='caption'>Something meaningful would do, like 'walls-final-final-2'.</p>
-          <v-text-field label="Test-Final-Final2.psd" single-line solo v-model='newStreamName'></v-text-field>
+          <v-text-field label="walls-final-final-2" single-line solo v-model='newStreamName'></v-text-field>
         </v-flex>
         <v-flex xs12>
           <p class='headline font-weight-light'>Objects</p>
