@@ -28,6 +28,8 @@ namespace SpeckleUiTester
   public class TestBindings : SpeckleUIBindings
   {
 
+    public List<dynamic> myClients = new List<dynamic>();
+
     public TestBindings( ) : base()
     {
     }
@@ -95,6 +97,26 @@ namespace SpeckleUiTester
         myClients.RemoveAt( index );
       }
       catch ( Exception e ) { }
+    }
+
+    public override void AddSelectionToSender( string args )
+    {
+      throw new NotImplementedException();
+    }
+
+    public override void RemoveSelectionFromSender( string args )
+    {
+      throw new NotImplementedException();
+    }
+
+    public override void UpdateSender( string args )
+    {
+      throw new NotImplementedException();
+    }
+
+    public override void SelectClientObjects( string args )
+    {
+      throw new NotImplementedException();
     }
   }
 

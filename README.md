@@ -1,18 +1,23 @@
 # SpeckleUi
-Base speckle ui for embedding in .net apps
+Base speckle ui for embedding in .net apps. It consists of two parts, a .NET scaffold (this repo), and vuejs web app (can be found [here](https://github.com/speckleworks/SpeckleUiApp)). 
 
-### Testing & Debugging
+### How To
 
-Make sure you've cloned this repo with its `SpeckleCore` submodule. 
+This is the first half of the re-usable speckle web ui. The other half, the actual app itself, is in this repo: https://github.com/speckleworks/SpeckleUiApp. Make sure, when debugging, that you `npm run serve` it beforehand.
 
-Then, start the web app!
+Furthermore, make sure you're loading the correct url:
 
-```sh
-cd /path/to/solutionfolder/App
-npm install
-npm run serve
+```cs
+// SpeckleUiWindow.xaml.cs L34
+
+#if DEBUG
+      Browser.Address = @"http://10.4.93.178:8080"; // YMMV: change this to where your node app resides; can be localhost:8080 if developing on the same machine
+#else
+      Browser.Addrress = @"https://appui.speckle.systems/#/"; // Load the latest CI-ed master in production.
+#endif
+
 ```
 
-Then set your startup project as `SpeckleUiTester` and hit run! If you get errors re sqlite.dll, usually a clean and rebuild solves them. If you get errors about cefsharp, make sure you're running with a specified build architecture (x64). 
+So far, that's about it. The main magic is in the `SpeckleUIBindings` class. When implementing in application of choice, implement this abstract class in order to be able to effectively communicate to the ui. 
 
-To show the chrome dev tools, click on the span conaining `SPECKLE` in the header.
+More to come. 
