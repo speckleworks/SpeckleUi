@@ -32,11 +32,12 @@ namespace SpeckleUiBase
       Browser.RegisterAsyncJsObject( "UiBindings", baseBindings );
 
 #if DEBUG
-      Browser.Address = @"http://localhost:8080/";
+      Browser.Address = @"http://10.4.93.178:8080"; // YMMV: change this to where your node app resides
 #else
-      var path = Directory.GetParent( Assembly.GetExecutingAssembly().Location );
-      var indexPath = string.Format( @"{0}\app\index.html", path ).Replace( "\\", "/");
-      Browser.Address = indexPath;
+      Browser.Addrress = @"https://appui.speckle.systems/#/";
+      //var path = Directory.GetParent( Assembly.GetExecutingAssembly().Location );
+      //var indexPath = string.Format( @"{0}\app\index.html", path ).Replace( "\\", "/");
+      //Browser.Address = indexPath;
 #endif
 
     }
