@@ -35,9 +35,6 @@ namespace SpeckleUiBase
       Browser.Address = @"http://10.4.93.178:8080"; // YMMV: change this to where your node app resides
 #else
       Browser.Addrress = @"https://appui.speckle.systems/#/";
-      //var path = Directory.GetParent( Assembly.GetExecutingAssembly().Location );
-      //var indexPath = string.Format( @"{0}\app\index.html", path ).Replace( "\\", "/");
-      //Browser.Address = indexPath;
 #endif
 
     }
