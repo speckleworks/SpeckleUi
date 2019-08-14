@@ -28,13 +28,14 @@ namespace SpeckleUiBase
       InitializeComponent();
 
       baseBindings.Browser = Browser;
+      baseBindings.Window = this;
 
       Browser.RegisterAsyncJsObject( "UiBindings", baseBindings );
 
 #if DEBUG
-      Browser.Address = @"http://10.4.93.178:8080"; // YMMV: change this to where your node app resides
+      Browser.Address = @"http://10.211.55.2:8080"; // YMMV: change this to where your node app resides
 #else
-      Browser.Addrress = @"https://appui.speckle.systems/#/";
+      Browser.Address = @"https://appui.speckle.systems/#/";
 #endif
 
     }

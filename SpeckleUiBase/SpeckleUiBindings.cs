@@ -12,6 +12,7 @@ namespace SpeckleUiBase
   public abstract class SpeckleUIBindings
   {
     public ChromiumWebBrowser Browser { get; set; }
+    public SpeckleUiWindow Window { get; set; }
 
     public SpeckleUIBindings()
     {
@@ -47,6 +48,20 @@ namespace SpeckleUiBase
     public void ShowDev()
     {
       Browser.ShowDevTools();
+    }
+
+    public void ShowAccountsPopup( )
+    {
+      Window.Dispatcher.Invoke( ( ) =>
+      {
+        var signInWindow = new SpecklePopup.SignInWindow();
+
+        var helper = new System.Windows.Interop.WindowInteropHelper( signInWindow );
+        helper.Owner = new System.Windows.Interop.WindowInteropHelper( Window ).Handle;
+
+        signInWindow.ShowDialog();
+        DispatchStoreActionUi( "getAccounts" );
+      } ); 
     }
 
     /// <summary>
