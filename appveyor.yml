@@ -1,0 +1,78 @@
+version: '{build}'
+image: Visual Studio 2019
+
+init:
+  - ps: |
+      If($Env:APPVEYOR_REPO_TAG -eq "true")
+      {
+        Update-AppveyorBuild -Version "$Env:APPVEYOR_REPO_TAG_NAME"
+      } 
+      else 
+      {
+        $releases = "https://api.github.com/repos/$env:APPVEYOR_REPO_NAME/releases"
+        $tag = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].tag_name
+        $spl = $tag.Split("-")[0]
+        Update-AppveyorBuild -Version "$spl.$Env:APPVEYOR_BUILD_VERSION-wip"
+      }
+      Write-Host "Hello. Build version is: $Env:APPVEYOR_BUILD_VERSION"
+
+before_build:
+- cmd: >-
+    nuget restore
+# version
+assembly_info:
+  patch: true
+  file: AssemblyInfo.*
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+
+build:
+  publish_nuget: true
+  include_nuget_references: true
+  publish_nuget_symbols: true
+  use_snupkg_format: true
+  project: SpeckleUiBase.csproj
+  verbosity: minimal
+
+after_build:
+   - 7z a -tzip -r SpeckleUi.zip "%APPVEYOR_BUILD_FOLDER%\SpeckleUiBase\bin\Release\*"
+
+artifacts:
+  - path: SpeckleUi.zip
+    name: SpeckleUi
+
+deploy:
+  - provider: GitHub
+    release: SpeckleUi-$(APPVEYOR_BUILD_VERSION)
+    tag: $(APPVEYOR_REPO_TAG_NAME)
+    auth_token:
+      secure: D5tPFvdQMg9sIe0sSvQjEWw4KAdOk1jyxNwiH5qP5DpDmUH6n6NgTdA+56vXS1Pe
+    artifact: SpeckleUi
+    description: ''
+    draft: false
+    prerelease: false
+    force_update: true
+    on:              
+      appveyor_repo_tag: true
+  - provider: NuGet
+    server:                  # remove to push to NuGet.org
+    api_key:
+      secure: n4EiHDLVSLjOzqT7OOOg3US3PWs6fNsOaGpyT/EFBKrTKl/1wMmmKt73MNuTngD+
+    skip_symbols: false
+    symbol_server:           # remove to push symbols to SymbolSource.org
+    on:
+      appveyor_repo_tag: true
+
+notifications:
+- provider: Slack
+  incoming_webhook:
+    secure: 9Kt/ImvGdsQ/dzmRdSaMIG+BO0R29MOJC7eZZnK5m5TyWwE+4nofEcYlb/r4lh9Z1Dx/bR+7oQtgAYO3W5s+qJshkT6Is9irYw3TfMZX7/M=
+  channel: '#devtalk'
+  template: Build <{{buildUrl}}|#{{buildVersion}}> (<{{commitUrl}}|{{commitId}}>) of {{repositoryName}}@{{branch}}) by {{commitAuthor}} {{status}} in {{duration}}
+  on_build_success: false
+  on_build_failure: true
+  on_build_status_changed: true
+
+configuration:
+  - Release
