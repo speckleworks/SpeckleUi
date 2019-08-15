@@ -33,7 +33,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -63,8 +63,11 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SpeckleCore, Version=1.5.0.312, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\SpeckleCore.1.5.0.312\lib\net45\SpeckleCore.dll</HintPath>
+    <Reference Include="SpeckleCore, Version=1.5.2.343, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\SpeckleCore.1.5.2.343\lib\net45\SpeckleCore.dll</HintPath>
+    </Reference>
+    <Reference Include="SpecklePopup, Version=1.6.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpecklePopup.1.6.8\lib\net45\SpecklePopup.dll</HintPath>
     </Reference>
     <Reference Include="SQLite-net, Version=1.5.231.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\sqlite-net-pcl.1.5.231\lib\netstandard1.1\SQLite-net.dll</HintPath>
@@ -149,12 +152,4 @@
   <Import Project="..\packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets')" />
   <Import Project="..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets')" />
   <Import Project="..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.targets" Condition="Exists('..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.targets')" />
-  <Target Name="AfterBuild">
-    <ItemGroup>
-      <MySourceFiles Include="$(ProjectDir)bin\$(ConfigurationName)\**\*.*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(MySourceFiles)" DestinationFiles="@(MySourceFiles->'$(SolutionDir)\$(ConfigurationName)\%(RecursiveDir)%(Filename)%(Extension)')">
-      <Output TaskParameter="CopiedFiles" ItemName="SuccessfullyCopiedFiles" />
-    </Copy>
-  </Target>
 </Project>

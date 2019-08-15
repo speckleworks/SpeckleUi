@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/speckleworks/SpeckleCore</projectUrl>
+    <iconUrl>https://avatars2.githubusercontent.com/u/31284874</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Base for loading up the speckle ui.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>speckle ui base package</tags>
+    <dependencies>
+      <dependency id="SpeckleCore" version="1.5.2" />
+      <dependency id="Newtonsoft.Json" version="12.0.2" />
+      <dependency id="CefSharp.Wpf" version="57.0.0" />
+      <dependency id="SpecklePopup" version="1.6.8" />
+    </dependencies>
+  </metadata>
+</package>

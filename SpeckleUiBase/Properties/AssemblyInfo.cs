@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SpeckleUiBase")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany( "https://speckle.works" )]
 [assembly: AssemblyProduct("SpeckleUiBase")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCopyright( "Copyright © 2019 Project Contributors. Licensed under the MIT license." )]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
