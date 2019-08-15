@@ -3,17 +3,19 @@ image: Visual Studio 2019
 
 init:
   - ps: |
-      Write-Host "Hello Tag: $Env:APPVEYOR_REPO_TAG_NAME"
+      Write-Host "$Env:APPVEYOR_REPO_TAG_NAME"
       If($Env:APPVEYOR_REPO_TAG -eq "true")
       {
-        Set-AppveyorBuildVariable 'APPVEYOR_BUILD_VERSION' '$Env:APPVEYOR_REPO_TAG_NAME'
+        Write-Host "We now have a tagged release. Proper."
+        Write-Host "Tag is $Env:APPVEYOR_REPO_TAG_NAME"
+        Update-AppveyorBuild -Version "$Env:APPVEYOR_REPO_TAG_NAME"
       } 
       else 
       {
         $releases = "https://api.github.com/repos/$env:APPVEYOR_REPO_NAME/releases"
         $tag = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].tag_name
         $spl = $tag.Split("-")[0]
-        Set-AppveyorBuildVariable 'APPVEYOR_BUILD_VERSION' '$spl.$Env:APPVEYOR_BUILD_VERSION-wip'
+        Update-AppveyorBuild -Version "$spl.$Env:APPVEYOR_BUILD_VERSION-wip"
       }
       Write-Host "Hello. Build version for SpeckleUiBase is: $Env:APPVEYOR_BUILD_VERSION"
       Write-Host "Test."
@@ -23,7 +25,7 @@ before_build:
     nuget restore
 # version
 assembly_info:
-  patch: true
+  patch: trues
   file: AssemblyInfo.*
   assembly_version: '{version}'
   assembly_file_version: '{version}'
