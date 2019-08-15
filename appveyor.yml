@@ -32,7 +32,7 @@ build:
   include_nuget_references: true
   publish_nuget_symbols: true
   use_snupkg_format: true
-  project: SpeckleUiBase.csproj
+  project: SpeckleUiBase\SpeckleUiBase.csproj
   verbosity: minimal
 
 after_build:
