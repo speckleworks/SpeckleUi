@@ -25,7 +25,7 @@ before_build:
     nuget restore
 # version
 assembly_info:
-  patch: trues
+  patch: true
   file: AssemblyInfo.*
   assembly_version: '{version}'
   assembly_file_version: '{version}'
