@@ -35,26 +35,7 @@ build:
   project: SpeckleUiBase\SpeckleUiBase.csproj
   verbosity: minimal
 
-after_build:
-   - 7z a -tzip -r SpeckleUi.zip "%APPVEYOR_BUILD_FOLDER%\SpeckleUiBase\bin\Release\*"
-
-artifacts:
-  - path: SpeckleUi.zip
-    name: SpeckleUi
-
 deploy:
-  - provider: GitHub
-    release: SpeckleUi-$(APPVEYOR_BUILD_VERSION)
-    tag: $(APPVEYOR_REPO_TAG_NAME)
-    auth_token:
-      secure: D5tPFvdQMg9sIe0sSvQjEWw4KAdOk1jyxNwiH5qP5DpDmUH6n6NgTdA+56vXS1Pe
-    artifact: SpeckleUi
-    description: ''
-    draft: false
-    prerelease: false
-    force_update: true
-    on:              
-      appveyor_repo_tag: true
   - provider: NuGet
     server:                  # remove to push to NuGet.org
     api_key:
@@ -64,18 +45,5 @@ deploy:
     on:
       appveyor_repo_tag: true
 
-notifications:
-- provider: Slack
-  incoming_webhook:
-    secure: 9Kt/ImvGdsQ/dzmRdSaMIG+BO0R29MOJC7eZZnK5m5TyWwE+4nofEcYlb/r4lh9Z1Dx/bR+7oQtgAYO3W5s+qJshkT6Is9irYw3TfMZX7/M=
-  channel: '#devtalk'
-  template: Build <{{buildUrl}}|#{{buildVersion}}> (<{{commitUrl}}|{{commitId}}>) of {{repositoryName}}@{{branch}}) by {{commitAuthor}} {{status}} in {{duration}}
-  on_build_success: false
-  on_build_failure: true
-  on_build_status_changed: true
-
-
-platform:
-  - x64
 configuration:
   - Release
