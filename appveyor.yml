@@ -3,12 +3,11 @@ image: Visual Studio 2019
 
 init:
   - ps: |
-      Write-Host "$Env:APPVEYOR_REPO_TAG_NAME"
       If($Env:APPVEYOR_REPO_TAG -eq "true")
       {
         Write-Host "We now have a tagged release. Proper."
         Write-Host "Tag is $Env:APPVEYOR_REPO_TAG_NAME"
-        Update-AppveyorBuild -Version "$Env:APPVEYOR_REPO_TAG_NAME"
+        Update-AppveyorBuild -Version $Env:APPVEYOR_REPO_TAG_NAME
       } 
       else 
       {
