@@ -6,14 +6,14 @@ init:
       Write-Host "Hello Tag: $Env:APPVEYOR_REPO_TAG_NAME"
       If($Env:APPVEYOR_REPO_TAG -eq "true")
       {
-        Update-AppveyorBuild -Version "$Env:APPVEYOR_REPO_TAG_NAME"
+        Set-AppveyorBuildVariable 'APPVEYOR_BUILD_VERSION' '$Env:APPVEYOR_REPO_TAG_NAME'
       } 
       else 
       {
         $releases = "https://api.github.com/repos/$env:APPVEYOR_REPO_NAME/releases"
         $tag = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].tag_name
         $spl = $tag.Split("-")[0]
-        Update-AppveyorBuild -Version "$spl.$Env:APPVEYOR_BUILD_VERSION-wip"
+        Set-AppveyorBuildVariable 'APPVEYOR_BUILD_VERSION' '$spl.$Env:APPVEYOR_BUILD_VERSION-wip'
       }
       Write-Host "Hello. Build version for SpeckleUiBase is: $Env:APPVEYOR_BUILD_VERSION"
       Write-Host "Test."

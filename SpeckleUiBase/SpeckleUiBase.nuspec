@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/speckleworks/SpeckleCore</projectUrl>
     <iconUrl>https://avatars2.githubusercontent.com/u/31284874</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>Base for loading up the speckle ui.</description>
     <releaseNotes></releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>speckle ui base package</tags>
