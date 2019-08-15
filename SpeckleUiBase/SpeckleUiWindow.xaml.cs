@@ -23,7 +23,12 @@ namespace SpeckleUiBase
   /// </summary>
   public partial class SpeckleUiWindow : Window
   {
-    public SpeckleUiWindow( SpeckleUIBindings baseBindings )
+    /// <summary>
+    /// Instantiates the ui.
+    /// </summary>
+    /// <param name="baseBindings">Your implementation of the SpeckleUiBindings class.</param>
+    /// <param name="address">Defaults to the master branch release of the web ui app. Change it to where you're running your local server when debugging!</param>
+    public SpeckleUiWindow( SpeckleUIBindings baseBindings, string address = "https://appui.speckle.systems/#/" )
     {
       InitializeComponent();
 
@@ -32,12 +37,7 @@ namespace SpeckleUiBase
 
       Browser.RegisterAsyncJsObject( "UiBindings", baseBindings );
 
-#if DEBUG
-      Browser.Address = @"http://10.211.55.2:8080"; // YMMV: change this to where your node app resides
-#else
-      Browser.Address = @"https://appui.speckle.systems/#/";
-#endif
-
+      Browser.Address = address;
     }
 
     // Note: Dynamo ships with cefsharp too, so we need to be careful around initialising cefsharp.
@@ -52,7 +52,7 @@ namespace SpeckleUiBase
       var pathSubprocess = System.IO.Path.Combine( assemblyPath, "CefSharp.BrowserSubprocess.exe" );
       var settings = new CefSettings
       {
-        BrowserSubprocessPath = pathSubprocess
+        BrowserSubprocessPath = pathSubprocess,
       };
 
       Cef.Initialize( settings );
