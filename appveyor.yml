@@ -3,6 +3,7 @@ image: Visual Studio 2019
 
 init:
   - ps: |
+      Write-Host "Hello Tag: $Env:APPVEYOR_REPO_TAG_NAME"
       If($Env:APPVEYOR_REPO_TAG -eq "true")
       {
         Update-AppveyorBuild -Version "$Env:APPVEYOR_REPO_TAG_NAME"
@@ -15,6 +16,7 @@ init:
         Update-AppveyorBuild -Version "$spl.$Env:APPVEYOR_BUILD_VERSION-wip"
       }
       Write-Host "Hello. Build version for SpeckleUiBase is: $Env:APPVEYOR_BUILD_VERSION"
+      Write-Host "Test."
 
 before_build:
 - cmd: >-
