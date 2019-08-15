@@ -7,7 +7,8 @@ init:
       {
         Write-Host "We now have a tagged release. Proper."
         Write-Host "Tag is $Env:APPVEYOR_REPO_TAG_NAME"
-        Update-AppveyorBuild -Version $Env:APPVEYOR_REPO_TAG_NAME
+        $env:APPVEYOR_BUILD_VERSION=$env:APPVEYOR_REPO_TAG_NAME
+        Update-AppveyorBuild -Version "$Env:APPVEYOR_REPO_TAG_NAME"
       } 
       else 
       {
@@ -17,7 +18,6 @@ init:
         Update-AppveyorBuild -Version "$spl.$Env:APPVEYOR_BUILD_VERSION-wip"
       }
       Write-Host "Hello. Build version for SpeckleUiBase is: $Env:APPVEYOR_BUILD_VERSION"
-      Write-Host "Test."
 
 before_build:
 - cmd: >-
