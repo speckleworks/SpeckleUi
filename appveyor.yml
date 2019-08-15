@@ -45,5 +45,8 @@ deploy:
     on:
       appveyor_repo_tag: true
 
+platform:
+  - x64
+
 configuration:
   - Release

@@ -152,12 +152,4 @@
   <Import Project="..\packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets')" />
   <Import Project="..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets')" />
   <Import Project="..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.targets" Condition="Exists('..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.targets')" />
-  <Target Name="AfterBuild">
-    <ItemGroup>
-      <MySourceFiles Include="$(ProjectDir)bin\$(ConfigurationName)\**\*.*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(MySourceFiles)" DestinationFiles="@(MySourceFiles->'$(SolutionDir)\$(ConfigurationName)\%(RecursiveDir)%(Filename)%(Extension)')">
-      <Output TaskParameter="CopiedFiles" ItemName="SuccessfullyCopiedFiles" />
-    </Copy>
-  </Target>
 </Project>
