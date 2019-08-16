@@ -15,10 +15,17 @@ namespace SpeckleUiTester
   /// </summary>
   public partial class App : Application
   {
+    SpeckleUiWindow UiWindow;
     private void Application_Startup( object sender, StartupEventArgs e )
     {
-      var speckleUiWindow = new SpeckleUiWindow( new TestBindings() );
-      speckleUiWindow.Show();
+
+#if DEBUG
+      UiWindow = new SpeckleUiWindow( new TestBindings(), @"http://10.211.55.2:8080/#/" );
+#else
+      UiWindow = new SpeckleUiWindow( new TestBindings() ); // On release, default to the latest ci-ed version from https://appui.speckle.systems
+#endif
+
+      UiWindow.Show();
     }
   }
 
