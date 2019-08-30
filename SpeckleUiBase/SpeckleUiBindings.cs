@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,10 +74,28 @@ namespace SpeckleUiBase
       return JsonConvert.SerializeObject( SpeckleCore.LocalContext.GetAllAccounts() );
     }
 
+    public void StartProcess(string args)
+    {
+      try
+      {
+        Process.Start(args);
+      }
+      catch (Exception e)
+      {
+
+      }
+      
+    }
+
+
+
+    #region abstract methods
+
     public abstract string GetApplicationHostName();
     public abstract string GetFileName();
     public abstract string GetDocumentId();
     public abstract string GetDocumentLocation();
+
 
     /// <summary>
     /// Returns the serialised clients present in the current open host file.
@@ -88,6 +107,11 @@ namespace SpeckleUiBase
     /// Adds a sender and persits the info to the host file
     /// </summary>
     public abstract void AddSender( string args );
+
+    /// <summary>
+    /// Updates a sender and persits the info to the host file
+    /// </summary>
+    public abstract void UpdateSender(string args);
 
     /// <summary>
     /// Adds the current selection to the provided client.
@@ -117,8 +141,6 @@ namespace SpeckleUiBase
     /// <param name="args"></param>
     public abstract void BakeReceiver( string args );
 
-    public abstract void UpdateSender( string args );
-
     // TODO: See how we go about this
     public abstract void AddObjectsToSender( string args );
     public abstract void RemoveObjectsFromSender( string args );
@@ -128,5 +150,8 @@ namespace SpeckleUiBase
     /// </summary>
     /// <param name="args"></param>
     public abstract void SelectClientObjects( string args );
+
+    #endregion
+
   }
 }

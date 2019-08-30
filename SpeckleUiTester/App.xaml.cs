@@ -20,7 +20,7 @@ namespace SpeckleUiTester
     {
 
 #if DEBUG
-      UiWindow = new SpeckleUiWindow( new TestBindings(), @"http://10.211.55.2:8080/#/" );
+      UiWindow = new SpeckleUiWindow( new TestBindings(), @"http://localhost:8080/#/");
 #else
       UiWindow = new SpeckleUiWindow( new TestBindings() ); // On release, default to the latest ci-ed version from https://appui.speckle.systems
 #endif
@@ -55,7 +55,12 @@ namespace SpeckleUiTester
 
     public override void AddSender( string args )
     {
-      throw new NotImplementedException();
+      //throw new NotImplementedException();
+    }
+
+    public override void UpdateSender(string args)
+    {
+      //throw new NotImplementedException();
     }
 
     public override void BakeReceiver( string args )
@@ -112,11 +117,6 @@ namespace SpeckleUiTester
     }
 
     public override void RemoveSelectionFromSender( string args )
-    {
-      throw new NotImplementedException();
-    }
-
-    public override void UpdateSender( string args )
     {
       throw new NotImplementedException();
     }
