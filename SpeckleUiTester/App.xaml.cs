@@ -150,15 +150,15 @@ namespace SpeckleUiTester
             "Lols"
           }
         },
-        new CustomSelectionFilter
+        new PropertySelectionFilter
         {
           Name = "Property",
           Icon = "filter_list",
+          HasCustomProperty = true,
           Values = new List<string>
           {
             "Family Name",
-            "Family Type",
-            "Custom",
+            "Family Type"
           }
         }
       };

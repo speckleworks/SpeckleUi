@@ -32,14 +32,16 @@ namespace SpeckleUiBase
     public List<string> Selection = new List<string>();
   }
 
-  public class CustomSelectionFilter : ISelectionFilter
+  public class PropertySelectionFilter : ISelectionFilter
   {
     public string Name { get; set; }
     public string Icon { get; set; }
-    public string Type { get { return typeof(CustomSelectionFilter).ToString(); } }
+    public string Type { get { return typeof(PropertySelectionFilter).ToString(); } }
 
     public List<string> Values { get; set; }
-    public List<string> Selection = new List<string>();
+    public string PropertyName { get; set; }
+    public string PropertyValue { get; set; }
+    public bool HasCustomProperty { get; set; }
   }
 
 
