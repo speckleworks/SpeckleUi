@@ -125,6 +125,44 @@ namespace SpeckleUiTester
     {
       throw new NotImplementedException();
     }
+
+    public override List<ISelectionFilter> GetSelectionFilters()
+    {
+      return new List<ISelectionFilter>
+      {
+        new ElementsSelectionFilter
+        {
+          Name = "Selection",
+          Icon = "mouse",
+          Count = 99
+        },
+        new ListSelectionFilter
+        {
+          Name = "Category",
+          Icon = "category",
+          Values = new List<string>
+          {
+            "Walls",
+            "Doors",
+            "Floors",
+            "Structural Elements",
+            "Dimitries",
+            "Lols"
+          }
+        },
+        new CustomSelectionFilter
+        {
+          Name = "Property",
+          Icon = "filter_list",
+          Values = new List<string>
+          {
+            "Family Name",
+            "Family Type",
+            "Custom",
+          }
+        }
+      };
+    }
   }
 
 }

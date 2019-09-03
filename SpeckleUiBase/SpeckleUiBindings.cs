@@ -74,6 +74,11 @@ namespace SpeckleUiBase
       return JsonConvert.SerializeObject( SpeckleCore.LocalContext.GetAllAccounts() );
     }
 
+    public string GetFilters()
+    {
+        return JsonConvert.SerializeObject(GetSelectionFilters());
+    }
+
     public void StartProcess(string args)
     {
       try
@@ -150,6 +155,8 @@ namespace SpeckleUiBase
     /// </summary>
     /// <param name="args"></param>
     public abstract void SelectClientObjects( string args );
+
+    public abstract List<ISelectionFilter> GetSelectionFilters();
 
     #endregion
 
