@@ -119,6 +119,11 @@ namespace SpeckleUiBase
     public abstract void UpdateSender(string args);
 
     /// <summary>
+    /// Pushes a sender's stream
+    /// </summary>
+    public abstract void PushSender(string args);
+
+    /// <summary>
     /// Adds the current selection to the provided client.
     /// </summary>
     public abstract void AddSelectionToSender( string args );
