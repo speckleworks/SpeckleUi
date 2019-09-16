@@ -39,8 +39,10 @@ namespace SpeckleUiBase
     public string Type { get { return typeof(PropertySelectionFilter).ToString(); } }
 
     public List<string> Values { get; set; }
+    public List<string> Operators { get; set; }
     public string PropertyName { get; set; }
     public string PropertyValue { get; set; }
+    public string PropertyOperator { get; set; }
     public bool HasCustomProperty { get; set; }
   }
 
