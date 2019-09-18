@@ -19,7 +19,7 @@ namespace SpeckleUiBase
     public string Icon { get; set; }
     public string Type { get { return typeof(ElementsSelectionFilter).ToString(); }  }
 
-    public int Count { get; set; }
+    public List<string> Selection = new List<string>();
   }
 
   public class ListSelectionFilter : ISelectionFilter
