@@ -134,7 +134,7 @@ namespace SpeckleUiTester
         {
           Name = "Selection",
           Icon = "mouse",
-          Count = 99
+          //Count = 99
         },
         new ListSelectionFilter
         {
@@ -162,6 +162,11 @@ namespace SpeckleUiTester
           }
         }
       };
+    }
+
+    public override void PushSender( string args )
+    {
+      throw new NotImplementedException();
     }
   }
 

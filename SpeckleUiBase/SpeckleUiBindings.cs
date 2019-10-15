@@ -12,7 +12,7 @@ namespace SpeckleUiBase
 {
   public abstract class SpeckleUIBindings
   {
-    public ChromiumWebBrowser Browser { get; set; }
+    public IWebBrowser Browser { get; set; }
     public SpeckleUiWindow Window { get; set; }
 
     public SpeckleUIBindings()
