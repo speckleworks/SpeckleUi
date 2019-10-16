@@ -26,7 +26,7 @@ namespace SpeckleUiBase
     /// </summary>
     /// <param name="eventName">The event's name.</param>
     /// <param name="eventInfo">The event args, which will be serialised to a string.</param>
-    public void NotifyUi( string eventName, dynamic eventInfo )
+    public virtual void NotifyUi( string eventName, dynamic eventInfo )
     {
       var script = string.Format( "window.EventBus.$emit('{0}', {1})", eventName, JsonConvert.SerializeObject( eventInfo ) );
       Browser.GetMainFrame().EvaluateScriptAsync( script );
@@ -37,7 +37,7 @@ namespace SpeckleUiBase
     /// </summary>
     /// <param name="storeActionName"></param>
     /// <param name="args"></param>
-    public void DispatchStoreActionUi( string storeActionName, string args = null )
+    public virtual void DispatchStoreActionUi( string storeActionName, string args = null )
     {
       var script = string.Format( "window.Store.dispatch('{0}', '{1}')", storeActionName, args );
       Browser.GetMainFrame().EvaluateScriptAsync( script );
@@ -46,12 +46,12 @@ namespace SpeckleUiBase
     /// <summary>
     /// Pops open the dev tools.
     /// </summary>
-    public void ShowDev()
+    public virtual void ShowDev()
     {
       Browser.ShowDevTools();
     }
 
-    public void ShowAccountsPopup( )
+    public virtual void ShowAccountsPopup( )
     {
       Window.Dispatcher.Invoke( ( ) =>
       {
@@ -69,17 +69,17 @@ namespace SpeckleUiBase
     /// Gets the current accounts.
     /// </summary>
     /// <returns></returns>
-    public string GetAccounts()
+    public virtual string GetAccounts()
     {
       return JsonConvert.SerializeObject( SpeckleCore.LocalContext.GetAllAccounts() );
     }
 
-    public string GetFilters()
+    public virtual string GetFilters()
     {
         return JsonConvert.SerializeObject(GetSelectionFilters());
     }
 
-    public void StartProcess(string args)
+    public virtual void StartProcess(string args)
     {
       try
       {
@@ -91,8 +91,6 @@ namespace SpeckleUiBase
       }
       
     }
-
-
 
     #region abstract methods
 
