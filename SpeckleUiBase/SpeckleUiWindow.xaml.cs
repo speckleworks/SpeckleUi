@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CefSharp;
+using CefSharp.Wpf;
 
 namespace SpeckleUiBase
 {
@@ -30,6 +31,8 @@ namespace SpeckleUiBase
     /// <param name="address">Defaults to the master branch release of the web ui app. Change it to where you're running your local server when debugging!</param>
     public SpeckleUiWindow( SpeckleUIBindings baseBindings, string address = "https://appui.speckle.systems/#/" )
     {
+      CefSharpSettings.LegacyJavascriptBindingEnabled = true;
+
       InitializeComponent();
 
       baseBindings.Browser = Browser;
