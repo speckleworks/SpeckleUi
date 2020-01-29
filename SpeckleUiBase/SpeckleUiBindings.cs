@@ -92,6 +92,16 @@ namespace SpeckleUiBase
       
     }
 
+    public virtual bool CanSelectObjects()
+    {
+      return false;
+    }
+
+    public virtual bool CanTogglePreview()
+    {
+      return false;
+    }
+
     #region abstract methods
 
     public abstract string GetApplicationHostName();
