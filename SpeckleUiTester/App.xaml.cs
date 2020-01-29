@@ -20,7 +20,7 @@ namespace SpeckleUiTester
     {
 
 #if DEBUG
-      UiWindow = new SpeckleUiWindow( new TestBindings(), @"http://localhost:8080/#/");
+      UiWindow = new SpeckleUiWindow( new TestBindings(), @"https://matteo-dev.appui.speckle.systems/#/");
 #else
       UiWindow = new SpeckleUiWindow( new TestBindings() ); // On release, default to the latest ci-ed version from https://appui.speckle.systems
 #endif
