@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace SpeckleUiBase
 {
   public abstract class SpeckleUIBindings
   {
-    public ChromiumWebBrowser Browser { get; set; }
+    public IWebBrowser Browser { get; set; }
     public SpeckleUiWindow Window { get; set; }
 
     public SpeckleUIBindings()
@@ -25,7 +26,7 @@ namespace SpeckleUiBase
     /// </summary>
     /// <param name="eventName">The event's name.</param>
     /// <param name="eventInfo">The event args, which will be serialised to a string.</param>
-    public void NotifyUi( string eventName, dynamic eventInfo )
+    public virtual void NotifyUi( string eventName, dynamic eventInfo )
     {
       var script = string.Format( "window.EventBus.$emit('{0}', {1})", eventName, JsonConvert.SerializeObject( eventInfo ) );
       Browser.GetMainFrame().EvaluateScriptAsync( script );
@@ -36,7 +37,7 @@ namespace SpeckleUiBase
     /// </summary>
     /// <param name="storeActionName"></param>
     /// <param name="args"></param>
-    public void DispatchStoreActionUi( string storeActionName, string args = null )
+    public virtual void DispatchStoreActionUi( string storeActionName, string args = null )
     {
       var script = string.Format( "window.Store.dispatch('{0}', '{1}')", storeActionName, args );
       Browser.GetMainFrame().EvaluateScriptAsync( script );
@@ -45,12 +46,12 @@ namespace SpeckleUiBase
     /// <summary>
     /// Pops open the dev tools.
     /// </summary>
-    public void ShowDev()
+    public virtual void ShowDev()
     {
       Browser.ShowDevTools();
     }
 
-    public void ShowAccountsPopup( )
+    public virtual void ShowAccountsPopup( )
     {
       Window.Dispatcher.Invoke( ( ) =>
       {
@@ -68,15 +69,46 @@ namespace SpeckleUiBase
     /// Gets the current accounts.
     /// </summary>
     /// <returns></returns>
-    public string GetAccounts()
+    public virtual string GetAccounts()
     {
       return JsonConvert.SerializeObject( SpeckleCore.LocalContext.GetAllAccounts() );
     }
+
+    public virtual string GetFilters()
+    {
+        return JsonConvert.SerializeObject(GetSelectionFilters());
+    }
+
+    public virtual void StartProcess(string args)
+    {
+      try
+      {
+        Process.Start(args);
+      }
+      catch (Exception e)
+      {
+
+      }
+      
+    }
+
+    public virtual bool CanSelectObjects()
+    {
+      return false;
+    }
+
+    public virtual bool CanTogglePreview()
+    {
+      return false;
+    }
+
+    #region abstract methods
 
     public abstract string GetApplicationHostName();
     public abstract string GetFileName();
     public abstract string GetDocumentId();
     public abstract string GetDocumentLocation();
+
 
     /// <summary>
     /// Returns the serialised clients present in the current open host file.
@@ -88,6 +120,16 @@ namespace SpeckleUiBase
     /// Adds a sender and persits the info to the host file
     /// </summary>
     public abstract void AddSender( string args );
+
+    /// <summary>
+    /// Updates a sender and persits the info to the host file
+    /// </summary>
+    public abstract void UpdateSender(string args);
+
+    /// <summary>
+    /// Pushes a sender's stream
+    /// </summary>
+    public abstract void PushSender(string args);
 
     /// <summary>
     /// Adds the current selection to the provided client.
@@ -117,8 +159,6 @@ namespace SpeckleUiBase
     /// <param name="args"></param>
     public abstract void BakeReceiver( string args );
 
-    public abstract void UpdateSender( string args );
-
     // TODO: See how we go about this
     public abstract void AddObjectsToSender( string args );
     public abstract void RemoveObjectsFromSender( string args );
@@ -128,5 +168,10 @@ namespace SpeckleUiBase
     /// </summary>
     /// <param name="args"></param>
     public abstract void SelectClientObjects( string args );
+
+    public abstract List<ISelectionFilter> GetSelectionFilters();
+
+    #endregion
+
   }
 }

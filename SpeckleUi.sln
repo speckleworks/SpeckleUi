@@ -1,17 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2048
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeckleUiBase", "SpeckleUiBase\SpeckleUiBase.csproj", "{CE40C576-3B05-443A-A1BA-CB3A796D0084}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeckleUiTester", "SpeckleUiTester\SpeckleUiTester.csproj", "{BBEF9956-108C-42B7-B03D-7A426114324B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D8589006-2100-430D-A313-EF0704D40CAB}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
-		SpeckleUi.nuspec = SpeckleUi.nuspec
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeckleUiBase", "SpeckleUiBase\SpeckleUiBase.csproj", "{CE40C576-3B05-443A-A1BA-CB3A796D0084}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,14 +20,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Debug|Any CPU.Build.0 = Debug|x64
-		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Debug|x64.ActiveCfg = Debug|x64
-		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Debug|x64.Build.0 = Debug|x64
-		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Release|Any CPU.ActiveCfg = Release|x64
-		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Release|Any CPU.Build.0 = Release|x64
-		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Release|x64.ActiveCfg = Release|x64
-		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Release|x64.Build.0 = Release|x64
 		{BBEF9956-108C-42B7-B03D-7A426114324B}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{BBEF9956-108C-42B7-B03D-7A426114324B}.Debug|Any CPU.Build.0 = Debug|x64
 		{BBEF9956-108C-42B7-B03D-7A426114324B}.Debug|x64.ActiveCfg = Debug|x64
@@ -37,6 +28,14 @@ Global
 		{BBEF9956-108C-42B7-B03D-7A426114324B}.Release|Any CPU.Build.0 = Release|x64
 		{BBEF9956-108C-42B7-B03D-7A426114324B}.Release|x64.ActiveCfg = Release|x64
 		{BBEF9956-108C-42B7-B03D-7A426114324B}.Release|x64.Build.0 = Release|x64
+		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Debug|x64.ActiveCfg = Debug|x64
+		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Debug|x64.Build.0 = Debug|x64
+		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Release|x64.ActiveCfg = Release|x64
+		{CE40C576-3B05-443A-A1BA-CB3A796D0084}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

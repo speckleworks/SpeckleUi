@@ -28,7 +28,7 @@ namespace SpeckleUiBase
     /// </summary>
     /// <param name="baseBindings">Your implementation of the SpeckleUiBindings class.</param>
     /// <param name="address">Defaults to the master branch release of the web ui app. Change it to where you're running your local server when debugging!</param>
-    public SpeckleUiWindow( SpeckleUIBindings baseBindings, string address = "https://appui.speckle.systems/#/" )
+    public SpeckleUiWindow( SpeckleUIBindings baseBindings, string address = "https://matteo-dev.appui.speckle.systems/#/" )
     {
       InitializeComponent();
 

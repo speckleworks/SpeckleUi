@@ -20,7 +20,7 @@ namespace SpeckleUiTester
     {
 
 #if DEBUG
-      UiWindow = new SpeckleUiWindow( new TestBindings(), @"http://10.211.55.2:8080/#/" );
+      UiWindow = new SpeckleUiWindow( new TestBindings(), @"https://matteo-dev.appui.speckle.systems/#/");
 #else
       UiWindow = new SpeckleUiWindow( new TestBindings() ); // On release, default to the latest ci-ed version from https://appui.speckle.systems
 #endif
@@ -55,7 +55,12 @@ namespace SpeckleUiTester
 
     public override void AddSender( string args )
     {
-      throw new NotImplementedException();
+      //throw new NotImplementedException();
+    }
+
+    public override void UpdateSender(string args)
+    {
+      //throw new NotImplementedException();
     }
 
     public override void BakeReceiver( string args )
@@ -116,12 +121,50 @@ namespace SpeckleUiTester
       throw new NotImplementedException();
     }
 
-    public override void UpdateSender( string args )
+    public override void SelectClientObjects( string args )
     {
       throw new NotImplementedException();
     }
 
-    public override void SelectClientObjects( string args )
+    public override List<ISelectionFilter> GetSelectionFilters()
+    {
+      return new List<ISelectionFilter>
+      {
+        new ElementsSelectionFilter
+        {
+          Name = "Selection",
+          Icon = "mouse",
+          //Count = 99
+        },
+        new ListSelectionFilter
+        {
+          Name = "Category",
+          Icon = "category",
+          Values = new List<string>
+          {
+            "Walls",
+            "Doors",
+            "Floors",
+            "Structural Elements",
+            "Dimitries",
+            "Lols"
+          }
+        },
+        new PropertySelectionFilter
+        {
+          Name = "Property",
+          Icon = "filter_list",
+          HasCustomProperty = true,
+          Values = new List<string>
+          {
+            "Family Name",
+            "Family Type"
+          }
+        }
+      };
+    }
+
+    public override void PushSender( string args )
     {
       throw new NotImplementedException();
     }

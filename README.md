@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e4824a5c-a6df-4670-b242-4873d26901ba/deploy-status)](https://app.netlify.com/sites/distracted-jones-770c28/deploys)
+
 # SpeckleUi
 Base speckle ui for embedding in .net apps. It consists of two parts, a .NET scaffold (this repo), and vuejs web app (can be found [here](https://github.com/speckleworks/SpeckleUiApp)). 
 
