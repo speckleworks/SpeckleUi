@@ -1,36 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProjectGuid>{CE40C576-3B05-443A-A1BA-CB3A796D0084}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SpeckleUiBase</RootNamespace>
     <AssemblyName>SpeckleUiBase</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp />
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;RELEASE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
@@ -44,9 +33,37 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug57|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug57\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>portable</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release57|x64'">
+    <OutputPath>bin\Release57\</OutputPath>
+    <DefineConstants>TRACE;RELEASE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>portable</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug65|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug65\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>portable</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release65|x64'">
+    <OutputPath>bin\Release65\</OutputPath>
+    <DefineConstants>TRACE;RELEASE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>portable</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -97,12 +114,33 @@
   <ItemGroup>
     <Resource Include="Assets\speckle.ico" />
   </ItemGroup>
+  <!-- USE CEF 57 or 65 -->
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Debug57' Or '$(Configuration)' == 'Release57'">
+      <ItemGroup>
+        <PackageReference Include="CefSharp.Wpf">
+          <Version>57.0.0</Version>
+        </PackageReference>
+      </ItemGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'Debug65' Or '$(Configuration)' == 'Release65'">
+      <ItemGroup>
+        <PackageReference Include="CefSharp.Wpf">
+          <Version>65.0.1</Version>
+        </PackageReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="CefSharp.Wpf">
+          <Version>79.1.360</Version>
+        </PackageReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <ItemGroup>
-    <PackageReference Include="CefSharp.Wpf">
-      <Version>57.0.0</Version>
-    </PackageReference>
     <PackageReference Include="SpeckleCore">
-      <Version>1.6.9</Version>
+      <Version>1.8.0.430</Version>
     </PackageReference>
     <PackageReference Include="SpecklePopup">
       <Version>1.6.13</Version>
