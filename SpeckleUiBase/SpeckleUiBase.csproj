@@ -116,14 +116,14 @@
   </ItemGroup>
   <!-- USE CEF 57 or 65 -->
   <Choose>
-    <When Condition="'$(Configuration)' == 'Debug57' Or '$(Configuration)' == 'Release57'">
+    <When Condition="'$(Configuration)' == 'Debug57' Or '$(Configuration)' == 'Release57' Or '$(Configuration)' == 'Release2019'">
       <ItemGroup>
         <PackageReference Include="CefSharp.Wpf">
           <Version>57.0.0</Version>
         </PackageReference>
       </ItemGroup>
     </When>
-    <When Condition="'$(Configuration)' == 'Debug65' Or '$(Configuration)' == 'Release65'">
+    <When Condition="'$(Configuration)' == 'Debug65' Or '$(Configuration)' == 'Release65' Or '$(Configuration)' == 'Release2020' Or '$(Configuration)' == 'Release2021'">
       <ItemGroup>
         <PackageReference Include="CefSharp.Wpf">
           <Version>65.0.1</Version>
