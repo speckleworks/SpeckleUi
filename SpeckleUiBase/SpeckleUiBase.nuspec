@@ -15,9 +15,9 @@
     <copyright>$copyright$</copyright>
     <tags>speckle ui base package</tags>
     <dependencies>
-      <dependency id="SpeckleCore" version="1.6.9" />
+      <dependency id="SpeckleCore" version="1.8.0" />
       <dependency id="Newtonsoft.Json" version="12.0.2" />
-      <dependency id="CefSharp.Wpf" version="57.0.0" />
+      <dependency id="CefSharp.Wpf" version="79.1.360" />
       <dependency id="SpecklePopup" version="1.6.13" />
     </dependencies>
   </metadata>
