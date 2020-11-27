@@ -119,21 +119,21 @@
     <When Condition="'$(Configuration)' == 'Debug57' Or '$(Configuration)' == 'Release57' Or '$(Configuration)' == 'Release2019'">
       <ItemGroup>
         <PackageReference Include="CefSharp.Wpf">
-          <Version>57.0.0</Version>
+          <Version>86.0.241</Version>
         </PackageReference>
       </ItemGroup>
     </When>
     <When Condition="'$(Configuration)' == 'Debug65' Or '$(Configuration)' == 'Release65' Or '$(Configuration)' == 'Release2020' Or '$(Configuration)' == 'Release2021'">
       <ItemGroup>
         <PackageReference Include="CefSharp.Wpf">
-          <Version>65.0.1</Version>
+          <Version>86.0.241</Version>
         </PackageReference>
       </ItemGroup>
     </When>
     <Otherwise>
       <ItemGroup>
         <PackageReference Include="CefSharp.Wpf">
-          <Version>79.1.360</Version>
+          <Version>86.0.241</Version>
         </PackageReference>
       </ItemGroup>
     </Otherwise>
